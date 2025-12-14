@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Chapitre 8. Interagir avec des Fichiers : Persistance des Données</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link ">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="chap8">
+<h2>Chapitre 8. Interagir avec des Fichiers : Persistance des Données</h2>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>Jusqu'à présent, toutes les informations de nos programmes sont <strong>volatiles</strong> :
+                        elles disparaissent dès que le programme s'arrête. C'est comme une conversation : les mots
+                        s'envolent. Interagir avec des fichiers, c'est comme <strong>écrire sur une feuille de
+                            papier</strong>. Les informations restent là (elles sont <strong>persistantes</strong>) et
+                        vous pouvez les relire plus tard.</p>
+</div>
+<p>Jusqu'à présent, toutes les données que nous avons manipulées dans nos programmes étaient volatiles :
+                    elles existaient uniquement pendant l'exécution du script et disparaissaient une fois le programme
+                    terminé. Pour stocker des informations de manière permanente, les partager ou les réutiliser, nous
+                    devons interagir avec le système de fichiers de l'ordinateur. Ce chapitre vous apprendra à lire et
+                    écrire des données dans des fichiers, ainsi qu'à manipuler les chemins d'accès.</p>
+<h3 id="c8-A">8-A. Lire un Fichier : Accéder aux Données Stockées</h3>
+<p>La lecture de fichiers est une opération courante. Python offre des outils simples et efficaces pour
+                    cela. La méthode la plus sûre et recommandée, même en Python 2.7, est d'utiliser le gestionnaire de
+                    contexte <code>with</code>. Il garantit que le fichier sera automatiquement fermé, même si des
+                    erreurs surviennent pendant la lecture.</p>
+<div class="alert alert-info">
+<h4>Le gestionnaire de contexte <code>with</code></h4>
+<p>L'instruction <code>with open(...) as f:</code> est la méthode à privilégier. Elle assure que la
+                        ressource (ici, le fichier) est correctement gérée. Oubliez les anciennes méthodes où il fallait
+                        penser à appeler <code>f.close()</code> manuellement ; le <code>with</code> s'en charge pour
+                        vous, c'est une garantie de sécurité et de robustesse.</p>
+</div>
+<pre><code class="language-python"># Supposons un fichier "donnees_geotech.txt" qui contient :
+# Profondeur,Resistance
+# 1.5,35
+# 2.0,42
+# 2.5,38
+# 3.0,40
+
+print "--- Lecture d'un fichier de donnees ---"
+try:
+    # 'r' pour "read" (lecture)
+    with open("donnees_geotech.txt", "r") as fichier:
+        print "Contenu complet du fichier:"
+        # Lit tout le contenu du fichier en une seule chaine
+        print fichier.read()
+        
+    # Reouverture pour montrer la lecture ligne par ligne
+    with open("donnees_geotech.txt", "r") as fichier:
+        print "\n--- Lecture ligne par ligne ---"
+        for ligne in fichier:
+            # .strip() enleve les espaces et sauts de ligne
+            ligne_propre = ligne.strip()
+            # Ignore les lignes vides ou les commentaires
+            if not ligne_propre or ligne_propre.startswith('#'):
+                continue
+            print "Ligne lue :", ligne_propre
+
+    # Lire une seule ligne
+    with open("donnees_geotech.txt", "r") as fichier:
+        premiere_ligne = fichier.readline()
+        print "\nPremiere ligne:", premiere_ligne.strip()
+
+    # Lire toutes les lignes dans une liste
+    with open("donnees_geotech.txt", "r") as fichier:
+        toutes_les_lignes = fichier.readlines()
+        print "\nToutes les lignes (liste):", toutes_les_lignes
+        print "Troisieme ligne:", toutes_les_lignes[2].strip()
+
+except IOError:
+    print ("Erreur : Impossible de trouver ou de lire le fichier "
+           "'donnees_geotech.txt'.")
+except Exception as e:
+    print "Une erreur inattendue est survenue lors de la lecture :", e
+</code></pre>
+<h3 id="c8-B">8-B. Écrire dans un Fichier : Sauvegarder vos Informations</h3>
+<p>Pour sauvegarder des données, vous devez ouvrir un fichier en mode écriture. Il existe plusieurs
+                    modes d'ouverture, chacun ayant un comportement spécifique :</p>
+<ul>
+<li><strong><code>'w'</code> (write/écrire) :</strong> Ouvre le fichier pour écrire.
+                        <strong>Attention : si le fichier existe déjà, son contenu est entièrement effacé !</strong>
+                        S'il n'existe pas, il est créé.
+                    </li>
+<li><strong><code>'a'</code> (append/ajouter) :</strong> Ouvre le fichier pour ajouter du contenu à
+                        la fin. Si le fichier n'existe pas, il est créé.</li>
+<li><strong><code>'r+'</code> (read and write/lecture et écriture) :</strong> Ouvre le fichier pour
+                        la lecture et l'écriture. Le pointeur est au début du fichier. Le fichier doit exister.</li>
+</ul>
+<pre><code class="language-python"># Exemple 1: Creation d'un nouveau rapport
+moment_max = 185.4
+effort_tranchant = 95.2
+
+with open("rapport_calcul.txt", "w") as rapport:
+    print &gt;&gt; rapport, "--- RAPPORT DE CALCUL DE STRUCTURE ---"
+    print &gt;&gt; rapport, "Date: 20/10/2025"
+    print &gt;&gt; rapport, "" # Ligne vide
+    print &gt;&gt; rapport, "- Moment flechissant maximal (ELU): {0:.2f} kNm".format(moment_max)
+    print &gt;&gt; rapport, "- Effort tranchant maximal (ELU): {0:.2f} kN".format(effort_tranchant)
+
+print "Le fichier 'rapport_calcul.txt' a ete genere avec succes."
+
+# Exemple 2: Ajout de donnees a un fichier existant
+with open("journal.log", "a") as journal:
+    journal.write("Nouvelle entree de journal: Operation reussie a {0}\\n".format("2025-10-23 14:30"))
+print "Nouvelle entree ajoutee au 'journal.log'."
+</code></pre>
+<h3 id="c8-C">8-C. Gestion des Chemins de Fichiers avec <code>os.path</code></h3>
+<p>Le module <code>os.path</code> (et <code>os</code> en général) fournit des fonctions pour manipuler
+                    les chemins de fichiers et de répertoires de manière indépendante du système d'exploitation
+                    (Windows, Linux, macOS). C'est essentiel pour écrire des scripts portables.</p>
+<pre><code class="language-python">import os
+
+# Obtenir le repertoire courant
+print "Repertoire courant:", os.getcwd()
+
+# Joindre des chemins de maniere intelligente
+chemin_complet = os.path.join("dossier", "sous_dossier", "mon_fichier.txt")
+print "Chemin complet:", chemin_complet
+
+# Verifier si un chemin existe
+print "Le fichier 'rapport_calcul.txt' existe-t-il ?", os.path.exists("rapport_calcul.txt")
+
+# Verifier si c'est un fichier ou un repertoire
+print "'rapport_calcul.txt' est un fichier ?", os.path.isfile("rapport_calcul.txt")
+print "'dossier_inexistant' est un repertoire ?", os.path.isdir("dossier_inexistant")
+
+# Obtenir le nom du repertoire et le nom du fichier
+repertoire, nom_fichier = os.path.split(chemin_complet)
+print "Repertoire:", repertoire
+print "Nom du fichier:", nom_fichier
+
+# Obtenir l'extension du fichier
+nom, extension = os.path.splitext("image.jpg")
+print "Nom:", nom, "Extension:", extension
+</code></pre>
+<h3 id="c8-D">8-D. Fichiers CSV : Données Tabulaires Simples</h3>
+<p>Les fichiers CSV (Comma Separated Values) sont un format très courant pour stocker des données
+                    tabulaires (comme des feuilles de calcul). Ils sont simples à lire et à écrire. Pour des besoins
+                    simples, vous pouvez les manipuler avec les fonctions de chaîne de caractères ; pour des cas plus
+                    complexes, le module <code>csv</code> de Python est plus robuste.</p>
+<pre><code class="language-python"># Supposons un fichier "produits.csv" :
+# ID,Nom,Prix
+# 1,Clou,0.10
+# 2,Vis,0.25
+# 3,Marteau,12.50
+
+# Lecture simple d'un fichier CSV
+print "\n--- Lecture de produits.csv ---"
+try:
+    with open("produits.csv", "r") as csv_file:
+        for ligne in csv_file:
+            elements = ligne.strip().split(',') # Separe par la virgule
+            print "ID:", elements[0], ", Nom:", elements[1], ", Prix:", elements[2]
+except IOError:
+    print "Erreur : Le fichier 'produits.csv' est introuvable."
+
+# Ecriture simple dans un fichier CSV
+print "\n--- Ecriture dans nouveau_produits.csv ---"
+nouveaux_produits = [
+    ["4", "Tournevis", "8.00"],
+    ["5", "Perceuse", "75.00"]
+]
+with open("nouveau_produits.csv", "w") as new_csv_file:
+    new_csv_file.write("ID,Nom,Prix\n") # En-tete
+    for produit in nouveaux_produits:
+        new_csv_file.write(",".join(produit) + "\n") # Joint les elements avec une virgule
+print "Fichier 'nouveau_produits.csv' cree."
+</code></pre>
+<hr class="my-5"/>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Résumé du Chapitre 8</h4>
+<ol>
+<li><strong>Lecture de Fichiers :</strong> Utilisez <code>with open(..., "r") as f:</code>.
+                                Méthodes : <code>read()</code>, <code>readline()</code>, <code>readlines()</code>.</li>
+<li><strong>Écriture de Fichiers :</strong> Utilisez <code>with open(..., "w") as f:</code>
+                                (écrase) ou <code>"a"</code> (ajoute). Méthodes : <code>write()</code>,
+                                <code>writelines()</code>.
+                            </li>
+<li><strong><code>os.path</code> :</strong> Module essentiel pour manipuler les chemins de
+                                fichiers de manière portable (<code>join</code>, <code>exists</code>,
+                                <code>isfile</code>, <code>isdir</code>, <code>split</code>, <code>splitext</code>).
+                            </li>
+<li><strong>Fichiers CSV :</strong> Données tabulaires. Manipulables avec
+                                <code>split(',')</code> et <code>",".join()</code>.
+                            </li>
+</ol>
+</div>
+</div>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Exercices Corrigés</h4>
+<h5 class="mt-3">Exercice 1 : Analyse de Log Simple</h5>
+<p>Vous avez un fichier <code>app.log</code> qui contient des lignes de log. Chaque ligne
+                            commence par un niveau de log (INFO, WARNING, ERROR). Lisez le fichier et comptez le nombre
+                            d'occurrences de chaque niveau de log.</p>
+<pre><code class="language-python"># Creez un fichier 'app.log' avec ce contenu pour tester:
+# INFO: Application started
+# WARNING: Low disk space
+# INFO: User logged in
+# ERROR: Database connection failed
+# INFO: User logged out
+# WARNING: High CPU usage
+
+# Correction Exercice 1
+log_counts = {"INFO": 0, "WARNING": 0, "ERROR": 0}
+try:
+    with open("app.log", "r") as log_file:
+        for ligne in log_file:
+            if ligne.startswith("INFO"):
+                log_counts["INFO"] += 1
+            elif ligne.startswith("WARNING"):
+                log_counts["WARNING"] += 1
+            elif ligne.startswith("ERROR"):
+                log_counts["ERROR"] += 1
+    print "Statistiques des logs:"
+    for niveau, count in log_counts.items():
+        print "{0}: {1}".format(niveau, count)
+except IOError:
+    print "Erreur : Le fichier 'app.log' est introuvable."
+</code></pre>
+<h5 class="mt-3">Exercice 2 : Copie de Fichier</h5>
+<p>Écrivez un script qui copie le contenu d'un fichier source vers un fichier destination.
+                            Demandez les noms des deux fichiers à l'utilisateur. Gérez les erreurs si le fichier source
+                            n'existe pas.</p>
+<pre><code class="language-python"># Correction Exercice 2
+nom_source = raw_input("Entrez le nom du fichier source : ")
+nom_destination = raw_input("Entrez le nom du fichier destination : ")
+
+try:
+    with open(nom_source, "r") as f_source:
+        contenu = f_source.read()
+    
+    with open(nom_destination, "w") as f_destination:
+        f_destination.write(contenu)
+    
+    print "Le contenu de '{0}' a ete copie dans '{1}' avec succes.".format(nom_source, nom_destination)
+
+except IOError:
+    print "Erreur : Le fichier source '{0}' est introuvable ou inaccessible.".format(nom_source)
+except Exception as e:
+    print "Une erreur inattendue est survenue :", e
+</code></pre>
+</div>
+</div>
+</section></main>
+<div class="chapter-nav"><a href="chapitre7.html" class="btn">← Précédent</a><a href="chapitre9.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Chapitre 7. La Gestion des Erreurs : Le Filet de Sécurité de Votre Code</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link ">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="chap7">
+<h2>Chapitre 7. La Gestion des Erreurs : Le Filet de Sécurité de Votre Code</h2>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>La gestion des erreurs, c'est comme mettre un <strong>filet de sécurité</strong> sous un
+                        trapéziste. Les erreurs sont inévitables : un utilisateur peut taper du texte au lieu d'un
+                        nombre, un fichier peut être manquant... Sans filet, le programme "plante". Avec le bloc
+                        <code>try...except</code>, vous dites à Python : "<strong>Essaie</strong> de faire cette
+                        acrobatie. Si tu tombes, ne t'écrase pas : atterris dans le filet et fais plutôt ceci."
+                    </p>
+</div>
+<p>En programmation, les erreurs sont inévitables. Un utilisateur peut entrer des données invalides, un
+                    fichier peut être introuvable, ou une opération mathématique peut être impossible (comme une
+                    division par zéro). Sans une gestion adéquate, ces situations peuvent faire "planter" votre
+                    programme, le rendant inutilisable. La gestion des erreurs est l'art de prévoir ces problèmes et de
+                    fournir des mécanismes pour que votre programme puisse y réagir de manière contrôlée et élégante.
+                </p>
+<img alt="Diagramme de flux montrant le fonctionnement d'un bloc try-catch-finally" class="img-fluid rounded my-3 mx-auto d-block zoomable-image" src="https://embeddedinventor.com/wp-content/uploads/2023/04/2-2.png" style="max-width: 400px;"/>
+<p>Le mécanisme principal en Python pour la gestion des erreurs est le bloc <code>try...except</code>.
+                    Il vous permet de "tenter" d'exécuter un code potentiellement risqué et de "capturer" les erreurs
+                    (appelées exceptions) qui pourraient survenir, afin de les traiter sans interrompre l'exécution du
+                    programme.</p>
+<h3 id="c7-A">7-A. Le bloc <code>try...except</code> : Capturer les Imprévus</h3>
+<p>La structure de base est simple : le code que vous pensez susceptible de générer une erreur est placé
+                    dans le bloc <code>try</code>. Si une erreur se produit, l'exécution du bloc <code>try</code> est
+                    immédiatement arrêtée, et le code du bloc <code>except</code> est exécuté. Si aucune erreur ne
+                    survient dans le bloc <code>try</code>, le bloc <code>except</code> est ignoré.</p>
+<pre><code class="language-python"># Exemple 1: Gerer une entree utilisateur invalide
+print "Entrez un nombre pour calculer son carre :"
+nombre_str = raw_input()
+
+try:
+    # On essaie de convertir la chaine en nombre flottant
+    nombre = float(nombre_str)
+    carre = nombre ** 2
+    print "Le carre de {0} est {1}".format(nombre, carre)
+except ValueError:
+    # Ce bloc s'execute UNIQUEMENT si une ValueError se produit (ex: l'utilisateur entre du texte)
+    print "Erreur : Vous n'avez pas entre un nombre valide !"
+
+print "\nLe programme continue apres le bloc try...except."
+# Testez avec "5", puis avec "bonjour"
+</code></pre>
+<div class="alert alert-info">
+<strong>Rappel :</strong> Sans le <code>try...except</code>, si l'utilisateur entrait "test", le
+                    programme s'arrêterait brutalement avec une <code>ValueError</code>. Grâce à ce bloc, nous
+                    "attrapons" l'erreur et affichons un message clair à l'utilisateur, permettant au programme de
+                    continuer.
+                </div>
+<h3 id="c7-B">7-B. Gérer des Erreurs Spécifiques et Multiples</h3>
+<p>Il est possible (et recommandé) de spécifier le type d'exception que vous souhaitez capturer. Cela
+                    permet de traiter différentes erreurs de manière différente et d'éviter de masquer des erreurs
+                    inattendues. Vous pouvez avoir plusieurs blocs <code>except</code> pour gérer divers types
+                    d'exceptions.</p>
+<pre><code class="language-python"># Exemple: Division securisee
+try:
+    num1_str = raw_input("Entrez le numerateur : ")
+    den_str = raw_input("Entrez le denominateur : ")
+
+    numerateur = float(num1_str)
+    denominateur = float(den_str)
+
+    resultat = numerateur / denominateur
+    print "Le resultat de la division est", resultat
+
+except ValueError:
+    # S'execute si float() echoue pour le numerateur ou le denominateur
+    print "Erreur : Veuillez entrer des nombres valides pour le numerateur et le denominateur."
+except ZeroDivisionError:
+    # S'execute si on essaie de diviser par zero
+    print "Erreur : Le denominateur ne peut pas etre zero."
+except Exception as e:
+    # Un 'except' general qui attrape toutes les autres erreurs possibles
+    # 'as e' permet de recuperer l'objet exception pour afficher plus de details
+    print "Une erreur inattendue est survenue :", e
+# Testez avec: "10", "2" -&gt; 5.0
+# Testez avec: "dix", "2" -&gt; Erreur ValueError
+# Testez avec: "10", "0" -&gt; Erreur ZeroDivisionError
+</code></pre>
+<div class="alert alert-warning">
+<strong>Bonne Pratique :</strong> Capturez toujours les exceptions les plus spécifiques en premier,
+                    puis les plus générales. Un <code>except</code> sans spécifier de type d'erreur
+                    (<code>except:</code>) est très général et peut masquer des bugs. Il est préférable d'utiliser
+                    <code>except Exception as e:</code> pour au moins loguer l'erreur.
+                </div>
+<h3 id="c7-C">7-C. Le bloc <code>else</code> : Quand tout va bien</h3>
+<p>Le bloc <code>else</code>, s'il est présent, est exécuté uniquement si le bloc <code>try</code> se
+                    termine sans aucune exception. C'est un endroit idéal pour placer le code qui dépend du succès de
+                    l'opération dans le <code>try</code>, mais qui n'est pas lui-même susceptible de lever une
+                    exception.</p>
+<pre><code class="language-python"># Exemple: Traitement apres validation
+try:
+    age_str = raw_input("Quel est votre age ? ")
+    age = int(age_str)
+except ValueError:
+    print "Erreur : L'age doit etre un nombre entier."
+else:
+    # Ce bloc s'execute UNIQUEMENT si aucune exception n'a ete levee dans le 'try'
+    if age &lt; 18:
+        print "Vous etes mineur."
+    else:
+        print "Vous etes majeur."
+# Testez avec: "20", puis "quinze"
+</code></pre>
+<h3 id="c7-D">7-D. Le bloc <code>finally</code> : Quoi qu'il arrive</h3>
+<p>Le bloc <code>finally</code> est toujours exécuté, qu'une exception ait été levée ou non, et qu'elle
+                    ait été gérée ou non. Il est couramment utilisé pour des opérations de nettoyage, comme la fermeture
+                    de fichiers ou de connexions à des bases de données, afin de s'assurer que les ressources sont
+                    correctement libérées.</p>
+<pre><code class="language-python"># Exemple: Nettoyage de ressources
+fichier = None # Initialisation pour s'assurer que 'fichier' existe meme si l'ouverture echoue
+try:
+    nom_fichier = raw_input("Entrez le nom du fichier a ouvrir : ")
+    fichier = open(nom_fichier, "r") # Potentiellement une IOError
+    contenu = fichier.read()
+    print "Contenu du fichier:\n", contenu
+except IOError:
+    print "Erreur : Le fichier '{0}' est introuvable ou illisible.".format(nom_fichier)
+except Exception as e:
+    print "Une erreur inattendue est survenue :", e
+finally:
+    # Ce bloc s'execute toujours
+    if fichier: # Verifie si le fichier a ete ouvert avec succes
+        fichier.close()
+        print "Le fichier a ete ferme."
+    else:
+        print "Aucun fichier n'a ete ouvert."
+# Testez avec: "fichier_inexistant.txt", puis un fichier existant
+</code></pre>
+<hr class="my-5"/>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Résumé du Chapitre 7</h4>
+<ol>
+<li><strong><code>try</code> :</strong> Contient le code potentiellement risqué.</li>
+<li><strong><code>except</code> :</strong> Capture et gère les exceptions spécifiques ou
+                                générales.</li>
+<li><strong><code>else</code> :</strong> Exécuté si le bloc <code>try</code> se termine sans
+                                exception.</li>
+<li><strong><code>finally</code> :</strong> Toujours exécuté, idéal pour le nettoyage des
+                                ressources.</li>
+<li><strong>Bonne Pratique :</strong> Gérer les exceptions spécifiques avant les générales.
+                            </li>
+</ol>
+</div>
+</div>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Exercices Corrigés</h4>
+<h5 class="mt-3">Exercice 1 : Calculatrice Simple et Robuste</h5>
+<p>Écrivez un programme qui demande à l'utilisateur deux nombres et une opération (+, -, *, /).
+                            Effectuez l'opération et affichez le résultat. Gérez les erreurs suivantes : entrée non
+                            numérique, division par zéro, opération invalide.</p>
+<pre><code class="language-python"># Correction Exercice 1
+while True:
+    try:
+        num1_str = raw_input("Entrez le premier nombre (ou 'q' pour quitter): ")
+        if num1_str.lower() == 'q':
+            break
+        num1 = float(num1_str)
+
+        num2_str = raw_input("Entrez le deuxieme nombre: ")
+        num2 = float(num2_str)
+
+        operation = raw_input("Entrez l'operation (+, -, *, /): ")
+
+        if operation == '+':
+            resultat = num1 + num2
+        elif operation == '-':
+            resultat = num1 - num2
+        elif operation == '*':
+            resultat = num1 * num2
+        elif operation == '/':
+            resultat = num1 / num2
+        else:
+            print "Operation invalide. Veuillez utiliser +, -, * ou /."
+            continue # Revient au debut de la boucle pour redemander l'operation
+
+        print "Resultat : {0} {1} {2} = {3}".format(num1, operation, num2, resultat)
+
+    except ValueError:
+        print "Erreur : Veuillez entrer des nombres valides."
+    except ZeroDivisionError:
+        print "Erreur : Division par zero impossible."
+    except Exception as e:
+        print "Une erreur inattendue est survenue :", e
+    print "------------------------------------"
+print "Calculatrice fermee."
+</code></pre>
+<h5 class="mt-3">Exercice 2 : Lecture de Fichier Sécurisée</h5>
+<p>Demandez à l'utilisateur le nom d'un fichier. Tentez de lire son contenu et de l'afficher. Si
+                            le fichier n'existe pas, affichez un message d'erreur approprié. Assurez-vous que le fichier
+                            est toujours fermé, même en cas d'erreur.</p>
+<pre><code class="language-python"># Correction Exercice 2
+fichier_ouvert = None
+try:
+    nom_fichier = raw_input("Entrez le nom du fichier a lire : ")
+    fichier_ouvert = open(nom_fichier, "r")
+    contenu = fichier_ouvert.read()
+    print "\n--- Contenu du fichier '{0}' ---\n{1}\n---------------------------------".format(nom_fichier, contenu)
+except IOError:
+    print "Erreur : Le fichier '{0}' est introuvable ou vous n'avez pas les permissions de lecture.".format(nom_fichier)
+except Exception as e:
+    print "Une erreur inattendue est survenue lors de la lecture :", e
+finally:
+    if fichier_ouvert:
+        fichier_ouvert.close()
+        print "Le fichier a ete ferme avec succes."
+    else:
+        print "Aucun fichier n'a ete ouvert."
+</code></pre>
+</div>
+</div>
+</section></main>
+<div class="chapter-nav"><a href="chapitre6.html" class="btn">← Précédent</a><a href="chapitre8.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>

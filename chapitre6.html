@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Chapitre 6. Les Fonctions : Créez vos propres outils et Organisez votre Code</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link ">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="chap6">
+<h2>Chapitre 6. Les Fonctions : Créez vos propres outils et Organisez votre Code</h2>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>Si vous vous retrouvez à faire la même série d'actions plusieurs fois (par exemple, calculer la
+                        surface d'un rectangle), vous pouvez regrouper ces actions dans une <strong>fonction</strong>.
+                        C'est comme créer votre propre outil dans une boîte à outils. Au lieu de refaire tout le
+                        travail, vous n'avez qu'à utiliser votre outil. C'est le principe "<strong>Don't Repeat
+                            Yourself</strong>" (Ne vous répétez pas) !</p>
+</div>
+<p>Nous avons déjà rencontré et utilisé des fonctions intégrées à Python (comme <code>print()</code>,
+                    <code>len()</code>) ou importées de modules (comme <code>math.sqrt()</code>). Le véritable pouvoir
+                    de la programmation se révèle lorsque vous commencez à créer vos propres fonctions. Une fonction est
+                    un bloc de code nommé, réutilisable, qui accomplit une tâche spécifique. C'est un pilier de la
+                    programmation qui favorise la modularité, la lisibilité et la réutilisation du code.
+                </p>
+<img alt="Schéma d'une fonction comme une machine qui prend une entrée (input), la traite, et produit une sortie (output)" class="img-fluid rounded my-3 mx-auto d-block zoomable-image" src="https://d8it4huxumps7.cloudfront.net/uploads/images/66582881cd196_python_functions_1.jpg" style="max-width: 300px;"/>
+<div class="alert alert-info">
+<h4>Le Principe DRY : Don't Repeat Yourself</h4>
+<p>L'un des objectifs principaux des fonctions est d'éviter la répétition de code. Si vous vous
+                        surprenez à copier-coller le même bloc de code à plusieurs endroits, c'est le signe qu'il est
+                        temps de créer une fonction.</p>
+</div>
+<h3 id="c6-A">6-A. La Création de Fonctions : <code>def</code> et Paramètres</h3>
+<p>Une fonction est définie en Python à l'aide du mot-clé <code>def</code>, suivi du nom de la fonction,
+                    d'une paire de parenthèses (qui peuvent contenir des paramètres) et d'un double-point
+                    (<code>:</code>). Le corps de la fonction doit être indenté.</p>
+<pre><code class="language-python"># Definition d'une fonction simple sans parametre
+def saluer():
+    print "Bonjour !"
+    print "Bienvenue au cours de Python."
+
+# Appel de la fonction
+saluer()
+# Sortie:
+# Bonjour !
+# Bienvenue au cours de Python.
+
+# Fonction avec un parametre
+def saluer_personne(nom):
+    print "Bonjour, {0} !".format(nom)
+
+saluer_personne("Alice") # Appel avec un argument
+saluer_personne("Bob")
+# Sortie:
+# Bonjour, Alice !
+# Bonjour, Bob !
+</code></pre>
+<h3 id="c6-B">6-B. Valeurs par Défaut des Paramètres</h3>
+<p>Vous pouvez attribuer une valeur par défaut à un paramètre. Si l'appelant de la fonction ne fournit
+                    pas d'argument pour ce paramètre, la valeur par défaut sera utilisée. Cela rend les fonctions plus
+                    flexibles.</p>
+<pre><code class="language-python"># Fonction avec un parametre par defaut
+def saluer_ville(nom, ville="Paris"):
+    print "Bonjour {0} de {1} !".format(nom, ville)
+
+saluer_ville("Charles") # Utilise la valeur par defaut pour 'ville'
+saluer_ville("Sophie", "Lyon") # Surcharge la valeur par defaut
+# Sortie:
+# Bonjour Charles de Paris !
+# Bonjour Sophie de Lyon !
+</code></pre>
+<h3 id="c6-C">6-C. Signature d'une Fonction et Docstrings</h3>
+<p>La "signature" d'une fonction fait référence à son nom et à ses paramètres. Une bonne pratique est
+                    d'inclure une "docstring" (chaîne de documentation) juste après la définition de la fonction. Elle
+                    explique ce que fait la fonction, ses paramètres, et ce qu'elle retourne. C'est essentiel pour la
+                    lisibilité et la maintenabilité du code.</p>
+<pre><code class="language-python">def calculer_surface_rectangle(longueur, largeur):
+    """
+    Calcule la surface d'un rectangle.
+
+    Args:
+        longueur (float): La longueur du rectangle.
+        largeur (float): La largeur du rectangle.
+
+    Returns:
+        float: La surface calculee du rectangle.
+    """
+    surface = longueur * largeur
+    return surface
+
+# On peut acceder a la docstring avec help()
+# help(calculer_surface_rectangle)
+</code></pre>
+<h3 id="c6-D">6-D. L'instruction <code>return</code></h3>
+<p>L'instruction <code>return</code> est utilisée pour renvoyer une ou plusieurs valeurs depuis une
+                    fonction. Dès qu'un <code>return</code> est rencontré, la fonction s'arrête et renvoie la ou les
+                    valeurs spécifiées à l'endroit où elle a été appelée. Si une fonction n'a pas d'instruction
+                    <code>return</code> explicite, elle renvoie implicitement <code>None</code>.
+                </p>
+<pre><code class="language-python"># Fonction renvoyant une seule valeur
+def ajouter(a, b):
+    somme = a + b
+    return somme
+
+resultat = ajouter(5, 3)
+print "La somme est:", resultat # Affiche: La somme est: 8
+
+# Fonction renvoyant plusieurs valeurs (sous forme de tuple)
+def get_min_max(liste_nombres):
+    if not liste_nombres:
+        return None, None # Renvoie deux None si la liste est vide
+    minimum = min(liste_nombres)
+    maximum = max(liste_nombres)
+    return minimum, maximum # Renvoie un tuple (min, max)
+
+min_val, max_val = get_min_max([10, 2, 8, 15]) # Depaquetage du tuple
+print "Min:", min_val, "Max:", max_val # Affiche: Min: 2 Max: 15
+</code></pre>
+<h3 id="c6-E">6-E. Les Modules : Organiser votre Code</h3>
+<p>Un module est simplement un fichier Python (avec l'extension <code>.py</code>) contenant des
+                    définitions de fonctions, des classes et des variables. Les modules permettent d'organiser le code
+                    en unités logiques et de le réutiliser dans différents programmes. Python est livré avec une vaste
+                    bibliothèque standard de modules.</p>
+<pre><code class="language-python"># Exemple de module (fichier 'mon_module.py')
+# def dire_bonjour(nom):
+#     return "Bonjour, " + nom + " !"
+#
+# PI = 3.14159
+</code></pre>
+<h3 id="c6-F">6-F. La Méthode <code>import</code> : Utiliser les Modules</h3>
+<p>Pour utiliser les fonctions ou variables définies dans un module, vous devez l'importer. Il existe
+                    plusieurs façons de le faire :</p>
+<ul>
+<li><strong><code>import nom_module</code> :</strong> Importe le module entier. Vous devez ensuite
+                        préfixer les éléments du module avec son nom (ex: <code>math.sqrt()</code>).</li>
+<li><strong><code>from nom_module import element</code> :</strong> Importe un élément spécifique
+                        (fonction, variable, classe) du module. Vous pouvez l'utiliser directement sans préfixe.</li>
+<li><strong><code>from nom_module import *</code> :</strong> Importe tous les éléments du module.
+                        <strong>À éviter</strong> car cela peut entraîner des conflits de noms et rendre le code moins
+                        lisible.
+                    </li>
+<li><strong><code>import nom_module as alias</code> :</strong> Importe le module et lui donne un
+                        alias plus court.</li>
+</ul>
+<pre><code class="language-python"># Utilisation du module 'math'
+import math
+print "Racine carree de 16:", math.sqrt(16)
+
+# Importer une fonction specifique
+from random import randint
+print "Nombre aleatoire entre 1 et 10:", randint(1, 10)
+
+# Importer avec un alias
+import time as t
+t.sleep(1) # Met le programme en pause pendant 1 seconde
+print "1 seconde s'est ecoulee."
+</code></pre>
+<h3 id="c6-G">6-G. Les Packages : Des Modules Structurés</h3>
+<p>Un package est une collection de modules organisés dans des répertoires. Il permet de structurer des
+                    projets plus importants et d'éviter les conflits de noms entre modules. Un répertoire est considéré
+                    comme un package s'il contient un fichier nommé <code>__init__.py</code> (même vide en Python 2,
+                    bien que son rôle ait évolué en Python 3).</p>
+<pre><code class="language-python"># Structure d'un package simple
+# mon_projet/
+# ├── __init__.py
+# ├── calculs/
+# │   ├── __init__.py
+# │      └── geometrie.py
+# └── utilitaires/
+#     ├── __init__.py
+#     └── affichage.py
+</code></pre>
+<h3 id="c6-H">6-H. Importer des Packages</h3>
+<p>L'importation d'éléments depuis un package se fait en utilisant la notation par points
+                    (<code>.</code>) pour spécifier le chemin d'accès au module ou à l'élément souhaité.</p>
+<pre><code class="language-python"># Supposons la structure de package ci-dessus
+# Dans geometrie.py:
+# def aire_cercle(rayon):
+#     return 3.14 * rayon * rayon
+
+# Dans un autre fichier Python:
+# Importation d'un module specifique d'un package
+from calculs import geometrie
+print "Aire du cercle:", geometrie.aire_cercle(5)
+
+# Importation d'une fonction specifique d'un module dans un package
+from calculs.geometrie import aire_cercle
+print "Autre aire:", aire_cercle(10)
+</code></pre>
+<h3 id="c6-I">6-I. Créer ses Propres Packages</h3>
+<p>Pour créer votre propre package, il suffit de créer un répertoire et d'y placer vos modules. Le
+                    fichier <code>__init__.py</code> indique à Python que le répertoire doit être traité comme un
+                    package. Vous pouvez y laisser vide ou y mettre du code d'initialisation pour le package.</p>
+<pre><code class="language-python"># Etapes pour creer un package 'mon_lib' avec un module 'operations.py'
+# 1. Creez un dossier: mon_lib/
+# 2. Dans mon_lib/, creez un fichier vide: __init__.py
+# 3. Dans mon_lib/, creez un fichier: operations.py
+#    Contenu de operations.py:
+#    def addition(a, b):
+#        return a + b
+#
+# 4. Dans un script externe (au meme niveau que mon_lib/):
+#    import mon_lib.operations
+#    print mon_lib.operations.addition(10, 5)
+</code></pre>
+<hr class="my-5"/>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Résumé du Chapitre 6</h4>
+<ol>
+<li><strong>Fonctions :</strong> Blocs de code réutilisables définis avec <code>def</code>.
+                            </li>
+<li><strong>Paramètres :</strong> Informations passées à une fonction. Peuvent avoir des
+                                valeurs par défaut.</li>
+<li><strong><code>return</code> :</strong> Renvoie une ou plusieurs valeurs d'une fonction.
+                            </li>
+<li><strong>Modules :</strong> Fichiers <code>.py</code> pour organiser le code. Importés
+                                avec <code>import</code>.</li>
+<li><strong>Packages :</strong> Répertoires contenant des modules et un fichier
+                                <code>__init__.py</code> pour structurer de grands projets.
+                            </li>
+</ol>
+</div>
+</div>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Exercices Corrigés</h4>
+<h5 class="mt-3">Exercice 1 : Calcul de Volume</h5>
+<p>Créez une fonction <code>calculer_volume_cylindre(rayon, hauteur)</code> qui prend le rayon
+                            et la hauteur d'un cylindre et retourne son volume. Utilisez <code>math.pi</code> du module
+                            <code>math</code>. Testez-la avec différentes valeurs.
+                        </p>
+<pre><code class="language-python"># Correction Exercice 1
+import math
+
+def calculer_volume_cylindre(rayon, hauteur):
+    """
+    Calcule le volume d'un cylindre.
+    Args:
+        rayon (float): Le rayon du cylindre.
+        hauteur (float): La hauteur du cylindre.
+    Returns:
+        float: Le volume calcule.
+    """
+    volume = math.pi * (rayon ** 2) * hauteur
+    return volume
+
+# Tests
+print "Volume (r=2, h=5):", calculer_volume_cylindre(2, 5)
+print "Volume (r=3, h=10):", calculer_volume_cylindre(3, 10)
+</code></pre>
+<h5 class="mt-3">Exercice 2 : Fonction de Salutation Personnalisée</h5>
+<p>Créez une fonction <code>saluer_personnalise(nom, message="Bienvenue")</code> qui prend un
+                            nom et un message optionnel. La fonction doit afficher le nom et le message. Si aucun
+                            message n'est fourni, elle utilise "Bienvenue".</p>
+<pre><code class="language-python"># Correction Exercice 2
+def saluer_personnalise(nom, message="Bienvenue"):
+    """
+    Affiche une salutation personnalisee.
+    Args:
+        nom (str): Le nom de la personne a saluer.
+        message (str, optional): Le message de salutation. Par defaut "Bienvenue".
+    """
+    print "{0}, {1} !".format(message, nom)
+
+# Tests
+saluer_personnalise("Alice")
+saluer_personnalise("Bob", "Bonjour")
+saluer_personnalise("Charlie", "Salut")
+</code></pre>
+<h5 class="mt-3">Exercice 3 : Création et Utilisation d'un Module Simple</h5>
+<p>Créez un fichier <code>utils.py</code> avec une fonction <code>multiplier(a, b)</code>. Dans
+                            un autre script, importez ce module et utilisez la fonction.</p>
+<pre><code class="language-python"># Contenu de 'utils.py'
+# def multiplier(a, b):
+#     return a * b
+
+# Contenu du script principal
+# import utils
+#
+# resultat_mult = utils.multiplier(7, 8)
+# print "Le produit est:", resultat_mult
+</code></pre>
+</div>
+</div>
+</section></main>
+<div class="chapter-nav"><a href="chapitre5.html" class="btn">← Précédent</a><a href="chapitre7.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>

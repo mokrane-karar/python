@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Travaux Pratiques</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link active">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="tp">
+<h2>Travaux pratiques</h2>
+<p>Ce programme de travaux pratiques est conçu pour vous accompagner semaine après semaine dans votre
+                    apprentissage. Chaque TP est une occasion de mettre en application les concepts vus en cours.</p>
+<h3>TP 1 : Prise en main de l'environnement Python (1 Semaine)</h3>
+<ol>
+<li><strong>Installation de Python et d'un éditeur de code :</strong>
+<ul>
+<li>Téléchargez et installez Python 2.7 depuis le site officiel.</li>
+<li>Installez un éditeur de code moderne comme VS Code (avec l'extension Python) ou PyCharm
+                                Community Edition.</li>
+</ul>
+</li>
+<li><strong>Premiers pas avec l'interpréteur Python :</strong>
+<ul>
+<li>Ouvrez un terminal et lancez l'interpréteur Python.</li>
+<li>Exécutez des commandes simples en mode interactif.</li>
+<li>Utilisez Python comme une calculatrice pour des opérations arithmétiques.</li>
+</ul>
+</li>
+<li><strong>Création et exécution d'un premier script Python :</strong>
+<ul>
+<li>Créez un fichier nommé <code>bonjour.py</code>.</li>
+<li>Écrivez une ligne de code qui affiche "Bonjour, monde !".</li>
+<li>Exécutez ce script depuis votre terminal.</li>
+</ul>
+</li>
+</ol>
+<h3>TP 2 : Variables, types de données et opérations (1 Semaine)</h3>
+<ol>
+<li><strong>Manipulation des types de données fondamentaux :</strong>
+<ul>
+<li>Créez des variables de type entier, flottant, chaîne de caractères et booléen.</li>
+<li>Utilisez la fonction <code>type()</code> pour vérifier le type de chaque variable.</li>
+<li>Expérimentez avec la conversion entre les types (ex: <code>int()</code>,
+                                <code>float()</code>, <code>str()</code>).
+                            </li>
+</ul>
+</li>
+<li><strong>Opérations arithmétiques et priorités :</strong>
+<ul>
+<li>Écrivez un script qui calcule l'aire d'un cercle à partir d'un rayon donné par
+                                l'utilisateur (utilisez <code>raw_input()</code>).</li>
+<li>Testez les règles de priorité des opérateurs.</li>
+</ul>
+</li>
+</ol>
+<h3>TP 3 : Structures conditionnelles et répétitives (1 Semaine)</h3>
+<ol>
+<li><strong>Instructions conditionnelles (if, elif, else) :</strong>
+<ul>
+<li>Écrivez un programme qui demande l'âge de l'utilisateur et affiche un message différent
+                                s'il est mineur, majeur, ou senior.</li>
+</ul>
+</li>
+<li><strong>Boucles (for, while) :</strong>
+<ul>
+<li>Utilisez une boucle <code>for</code> pour afficher les 10 premiers termes de la table de
+                                multiplication de 7.</li>
+<li>Utilisez une boucle <code>while</code> pour créer un petit jeu "devinez le nombre".</li>
+</ul>
+</li>
+</ol>
+<h3>TP 4 : Fonctions et modularité (1 Semaine)</h3>
+<ol>
+<li><strong>Définition et appel de fonctions :</strong>
+<ul>
+<li>Transformez les scripts des TP précédents en les organisant avec des fonctions.</li>
+</ul>
+</li>
+<li><strong>Paramètres et valeurs de retour :</strong>
+<ul>
+<li>Créez une fonction qui prend une température en degrés Celsius et la retourne en degrés
+                                Fahrenheit.</li>
+</ul>
+</li>
+</ol>
+<h3>TP 5 : Structures de données (1 Semaine)</h3>
+<ol>
+<li><strong>Manipulation des listes :</strong>
+<ul>
+<li>Créez une liste de courses. Écrivez des fonctions pour y ajouter un élément, en
+                                supprimer un, et afficher la liste.</li>
+</ul>
+</li>
+<li><strong>Dictionnaires et tuples :</strong>
+<ul>
+<li>Créez un dictionnaire pour stocker les informations d'un contact (nom, prénom,
+                                téléphone).</li>
+<li>Affichez ces informations de manière formatée.</li>
+</ul>
+</li>
+</ol>
+<h3>TP 6: Manipulation de fichiers et projet final (1 Semaine)</h3>
+<ol>
+<li><strong>Lecture et écriture de fichiers texte :</strong>
+<ul>
+<li>Modifiez le TP5 pour que la liste de courses soit sauvegardée dans un fichier et
+                                rechargée au lancement du programme.</li>
+</ul>
+</li>
+<li><strong>Projet final au choix :</strong>
+<ul>
+<li><strong>Gestionnaire de tâches en ligne de commande :</strong> Un programme pour
+                                ajouter, lister et supprimer des tâches.</li>
+<li><strong>Jeu du pendu :</strong> Le jeu classique du pendu dans le terminal.</li>
+<li><strong>Analyse de données à partir d'un fichier CSV :</strong> Lisez un fichier CSV
+                                simple et calculez des statistiques (moyenne, max, min) sur une colonne.</li>
+<li><strong>Quiz interactif avec sauvegarde des scores :</strong> Posez des questions à
+                                l'utilisateur et enregistrez son score dans un fichier.</li>
+</ul>
+</li>
+</ol>
+<h3>Contrôle</h3>
+<p>Un contrôle final vérifiera l'acquisition de l'ensemble de ces compétences.</p>
+</section></main>
+<div class="chapter-nav"><a href="chapitre9.html" class="btn">← Précédent</a><a href="corriges.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>

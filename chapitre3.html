@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Chapitre 3. Les Structures Conditionnelles</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link ">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="chap3">
+<h2>Chapitre 3. Les Structures Conditionnelles</h2>
+<div class="alert alert-info">
+<h4 class="alert-heading">Objectifs du chapitre</h4>
+<p>À la fin de ce cours, vous serez capable de :</p>
+<ul>
+<li>Comprendre le concept de flux de contrôle et son importance dans un programme</li>
+<li>Utiliser les expressions booléennes et les opérateurs logiques</li>
+<li>Implémenter des structures <code>if</code>, <code>elif</code> et <code>else</code> pour
+                            prendre des décisions</li>
+<li>Manipuler les conditions imbriquées efficacement</li>
+<li>Rédiger du code qui réagit différemment selon les entrées ou l'état du programme</li>
+<li>Appliquer les bonnes pratiques de programmation conditionnelle</li>
+</ul>
+<p>En d'autres termes, vous transformerez vos programmes d'une série d'étapes fixes en des systèmes
+                        capables de s'adapter, de diagnostiquer et de personnaliser leur comportement en fonction des
+                        données qu'ils traitent. La maîtrise des conditions est la clé pour écrire des logiciels utiles
+                        et dynamiques.</p>
+</div>
+<section>
+<h3 id="c3-A">3-A. Flux de Contrôle et Booléens</h3>
+<h4 id="c3-A-1">Le Flux de Contrôle</h4>
+<h5>Qu'est-ce que le flux de contrôle ?</h5>
+<p>Le flux de contrôle est le mécanisme qui détermine l'ordre d'exécution des instructions dans un
+                        programme. Par défaut, Python exécute les instructions de manière séquentielle, ligne par ligne,
+                        de haut en bas. Cependant, les structures conditionnelles nous permettent de modifier ce flux en
+                        fonction de conditions spécifiques.</p>
+<h4>Importance du flux de contrôle :</h4>
+<p>Sans structures conditionnelles, un programme ne pourrait faire que la même chose à chaque
+                        exécution. Avec elles, le programme peut s'adapter et prendre des décisions intelligentes.</p>
+<h4>Exemple conceptuel :</h4>
+<img alt="Diagramme de flux montrant une condition qui mène à deux branches d'exécution possibles (if-then-else)" class="img-fluid rounded my-3 mx-auto d-block zoomable-image" src="https://upload.wikimedia.org/wikipedia/commons/c/c5/If-Then-Else-diagram.svg" style="max-width: 350px;"/>
+<pre><code class="language-python">Programme linéaire (sans contrôle) :
+Étape 1 → Étape 2 → Étape 3 → Fin
+
+Programme avec contrôle :
+Étape 1 → Décision (Si/Sinon) → Étape 2A ou 2B → Fin</code></pre>
+<p>En Python, la manière dont nous indiquons les instructions qui font partie d'une décision ou
+                        d'une boucle repose entièrement sur l'**indentation**. Ce mécanisme, unique à Python, est la
+                        façon dont le langage définit les blocs de code et gère le flux. Une compréhension parfaite de
+                        l'indentation (généralement 4 espaces) est donc essentielle pour que vos structures
+                        conditionnelles fonctionnent correctement.</p>
+<h4 id="c3-A-2">Types de Données Booléens</h4>
+<p>Les booléens sont les valeurs les plus simples en Python : <code>True</code> (vrai) et
+                        <code>False</code> (faux).
+                    </p>
+<p>Ces deux mots-clés, nommés d'après le mathématicien George Boole, constituent le fondement de
+                        toute prise de décision en programmation. Chaque condition que nous écrirons sera évaluée par
+                        l'interpréteur Python pour donner finalement l'une de ces deux valeurs, qui dictera ensuite la
+                        suite du flux d'exécution.</p>
+<pre><code class="language-python"># Exemples de booléens
+est_majeur = True
+est_connecte = False
+print est_majeur  # Affiche: True</code></pre>
+<p>En Python 2.7, les valeurs booléennes peuvent être traitées comme 1 (True) et 0 (False), mais
+                        utilisez les constantes <code>True</code> et <code>False</code> pour plus de clarté. C'est le
+                        résultat de la vérification des conditions qui sera au cœur de l'utilisation des structures
+                        `if`.</p>
+<h4 id="c3-A-3">Opérateurs de Comparaison</h4>
+<p>Les opérateurs de comparaison sont des outils qui nous permettent de vérifier la relation entre
+                        deux valeurs ou variables. Ils sont cruciaux car ce sont eux qui transforment des données
+                        numériques ou textuelles en l'une des deux valeurs booléennes : <code>True</code> ou
+                        <code>False</code>, nécessaires pour les structures conditionnelles.
+                    </p>
+<table>
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>Égal à</td>
+<td><code>5 == 5 → True</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Différent de</td>
+<td><code>5 != 3 → True</code></td>
+</tr>
+<tr>
+<td><code>&lt;&gt;</code></td>
+<td>Différent de (Python 2.7 uniquement)</td>
+<td><code>5 &lt;&gt; 3 → True</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Inférieur à</td>
+<td><code>3 &lt; 5 → True</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Supérieur à</td>
+<td><code>5 &gt; 3 → True</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Inférieur ou égal</td>
+<td><code>5 &lt;= 5 → True</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Supérieur ou égal</td>
+<td><code>5 &gt;= 3 → True</code></td>
+</tr>
+</tbody>
+</table>
+<h4>Exemples pratiques :</h4>
+<p>Ces exemples montrent comment les opérateurs évaluent différentes comparaisons, non seulement
+                        avec des nombres, mais aussi avec des chaînes de caractères et des collections (listes, tuples,
+                        etc.). La comparaison s'effectue sur la valeur et non sur le type, mais faites attention à
+                        comparer des types compatibles.</p>
+<pre><code class="language-python"># Comparaisons numériques
+age = 25
+print age &gt; 18       # True
+print age == 25      # True
+print age &lt;= 18      # False
+
+# Comparaisons de chaînes
+nom = "Alice"
+print nom == "Alice" # True
+print nom != "Bob"   # True
+
+# Comparaisons de listes
+nombres = [1, 2, 3]
+print nombres == [1, 2, 3]  # True
+print nombres == []         # False</code></pre>
+<p class="note"><strong>Note Python 2.7 :</strong> L'opérateur <code>&lt;&gt;</code> est une
+                        alternative à <code>!=</code>. Dans Python 3, seul <code>!=</code> est valide. Il est recommandé
+                        d'utiliser <code>!=</code> pour un code plus portable.</p>
+<h4 id="c3-A-4">Opérateurs Logiques</h4>
+<p>Lorsque vous avez besoin de tester plusieurs conditions simultanément, vous utilisez les
+                        opérateurs logiques. Ils permettent de combiner les résultats booléens de plusieurs expressions
+                        pour obtenir un unique résultat final (True ou False) qui sera utilisé par votre structure `if`.
+                    </p>
+<h5>AND (et) - Vrai si TOUTES les conditions sont vraies</h5>
+<pre><code class="language-python">age = 25
+a_permis = True 
+peut_conduire = age &gt;= 18 and a_permis == True
+print peut_conduire  # True</code></pre>
+<p>L'opérateur <code>and</code> est très strict : si la première condition est fausse, Python ne
+                        prend même pas la peine d'évaluer la seconde (ce concept est appelé "short-circuiting"). C'est
+                        un excellent moyen de garantir que toutes les exigences sont satisfaites avant de procéder.</p>
+<h4>OR (ou) - Vrai si AU MOINS UNE condition est vraie</h4>
+<pre><code class="language-python">est_weekend = True
+est_vacances = False
+peut_se_reposer = est_weekend or est_vacances
+print peut_se_reposer  # True</code></pre>
+<p>L'opérateur <code>or</code>, à l'inverse, est très souple. Dès qu'il trouve une seule condition
+                        vraie, il s'arrête (short-circuiting) et renvoie <code>True</code>, peu importe l'état des
+                        autres conditions. Il est parfait pour offrir des alternatives.</p>
+<h5>NOT (non) - Inverse le résultat</h5>
+<pre><code class="language-python">est_occupe = False
+est_libre = not est_occupe
+print est_libre  # True</code></pre>
+<p>L'opérateur <code>not</code> inverse simplement le résultat booléen. Il transforme
+                        <code>True</code> en <code>False</code> et <code>False</code> en <code>True</code>. C'est
+                        souvent utilisé pour vérifier l'absence d'une condition.
+                    </p>
+<h5>Combinaisons complexes :</h5>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# Vérifier si une personne peut voter
+age = 30
+est_citoyen = True
+a_antecedents = False
+peut_voter = (age &gt;= 18) and est_citoyen and (not a_antecedents)
+print peut_voter  # True</code></pre>
+<p>Ordre d'évaluation : <code>not</code> → <code>and</code> → <code>or</code>. En cas de doute ou
+                        pour garantir la clarté, l'utilisation de parenthèses est fortement recommandée pour regrouper
+                        les conditions et forcer un ordre d'évaluation spécifique.</p>
+<h5>Exercice Pratique 1</h5>
+<p>Écrivez des expressions booléennes qui évaluent :</p>
+<ul>
+<li>Vrai si <code>age</code> est compris entre 18 et 65 (inclus).</li>
+<li>Vrai si <code>score</code> est supérieur à 50 et <code>bonus</code> est Vrai.</li>
+<li>Vrai si <code>jour</code> est "Samedi" ou "Dimanche".</li>
+</ul>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap3-ex1" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap3-ex1">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# 1. Age entre 18 et 65
+(age &gt;= 18) and (age &lt;= 65)
+
+# 2. Score &gt; 50 et bonus actif
+(score &gt; 50) and bonus
+
+# 3. Weekend
+(jour == "Samedi") or (jour == "Dimanche")</code></pre>
+</div>
+<h4 id="c3-D-1">Opérateurs Logiques Avancés</h4>
+<p>Maîtriser les opérateurs logiques est essentiel pour construire des conditions sophistiquées
+                        qui
+                        modélisent précisément les règles métier ou les exigences du programme. Il est rare qu'une
+                        condition soit isolée ; la plupart du temps, vous devrez vérifier l'état de plusieurs
+                        variables
+                        simultanément.</p>
+<h5>Combiner plusieurs conditions avec AND</h5>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# Une personne peut conduire si elle a l'âge ET le permis
+age = 25
+a_permis = True 
+if age &gt;= 18 and a_permis:
+    print u"Autorisé à conduire"</code></pre>
+<h4>Combiner avec OR</h4>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# Vous avez un jour de congé si c'est le weekend OU un jour férié
+est_weekend = True
+est_ferie = False
+if est_weekend or est_ferie:
+    print u"Jour de repos!"</code></pre>
+<h5>Utiliser NOT pour inverser</h5>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# Accepter si ce n'est pas un nombre négatif
+nombre = 10
+if not (nombre &lt; 0):
+    print u"Nombre valide"
+
+# Équivalent et plus lisible :
+if nombre &gt;= 0:
+    print u"Nombre valide"</code></pre>
+<h5>Parenthèses pour clarifier</h5>
+<p>Même si Python applique une priorité claire (`not` &gt; `and` &gt; `or`), il est fortement
+                        conseillé
+                        d'utiliser des parenthèses `()` pour regrouper les sous-conditions. Cela permet de clarifier
+                        l'intention du code et d'éviter les erreurs logiques, en particulier lorsque vous mélangez
+                        `and`
+                        et `or`.</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+a, b, c = 10, 5, 0
+
+# Sans parenthèses : peut être confus
+if a &gt; 5 and b &lt; 10 or c == 0:
+    print u"Condition 1 remplie" # S'exécute
+
+# Avec parenthèses : clair et explicite
+if (a &gt; 5 and b &lt; 10) or (c == 0):
+    print u"Condition 2 remplie" # S'exécute
+# Respecte l'ordre : not &gt; and &gt; or</code></pre>
+<h4 id="c3-D-2">Conditions Imbriquées (Révision)</h4>
+<p>Rappelez-vous que l'indentation est critique :</p>
+<p>Dans un scénario d'imbrication, chaque niveau supplémentaire d'indentation crée un
+                        sous-contexte.
+                        Le bloc de code de l'instruction interne ne sera jamais atteint à moins que la condition de
+                        l'instruction externe ne soit vraie. Cela vous permet de construire des arbres de décision
+                        qui
+                        deviennent de plus en plus spécifiques au fur et à mesure que l'exécution progresse.</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# Login avec vérification de nom et mot de passe
+nom_utilisateur = raw_input(u"Nom d'utilisateur: ")
+mot_de_passe = raw_input(u"Mot de passe: ")
+
+if nom_utilisateur == "admin":
+    print u"Nom d'utilisateur reconnu"
+        
+    if mot_de_passe == "12345":
+        print u"Accès autorisé!"
+    else:
+        print u"Mot de passe incorrect"
+else:
+    print u"Utilisateur inconnu"</code></pre>
+<h4 id="c3-D-3">Valeurs Truthiness (Rappel)</h4>
+<p>Le concept de "truthiness" est un élément clé de la culture Python. En utilisant cette
+                        propriété,
+                        vous pouvez souvent écrire des conditions plus courtes qui testent l'existence ou la
+                        non-vacuité
+                        d'un objet sans avoir à utiliser de fonctions de longueur (comme `len()`) ou de comparaisons
+                        explicites avec des valeurs vides (comme `== ""`). C'est un excellent moyen d'écrire du code
+                        plus "Pythonic" et lisible.</p>
+<h5>Exemple pratique :</h5>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# Verifier si une liste est vide
+fruits = []
+if fruits:
+    print u"Vous avez des fruits"
+else:
+    print u"Pas de fruits"
+
+# Verification de dictionnaire
+parametre = {}
+if parametre:
+    print u"Paramètres chargés"
+else:
+    print u"Pas de paramètres"
+
+# Usage pratique dans une fonction
+def afficher_message(message):
+    if message:
+        print u"Message: " + message
+    else:
+        print u"Pas de message"
+
+afficher_message(u"Bonjour")
+afficher_message(u"")</code></pre>
+</section>
+<section>
+<h3 id="c3-E">3-E. Exercices Pratiques Complets</h3>
+<p>Mettez en pratique vos connaissances avec ces exercices. Essayez de les résoudre sans regarder la
+                        solution immédiatement.</p>
+<div class="alert alert-secondary">
+<h5>Exercice 1 : Parité</h5>
+<p>Demandez un nombre entier à l'utilisateur. Affichez "Pair" si le nombre est pair, sinon
+                            "Impair".</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap3-final1" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap3-final1">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+nombre = int(raw_input("Entrez un nombre entier : "))
+if nombre % 2 == 0:
+    print "Le nombre est Pair"
+else:
+    print "Le nombre est Impair"</code></pre>
+</div>
+</div>
+<div class="alert alert-secondary">
+<h5>Exercice 2 : Le plus grand nombre</h5>
+<p>Demandez deux nombres à l'utilisateur et affichez le plus grand des deux.</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap3-final2" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap3-final2">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+a = float(raw_input("Entrez le premier nombre : "))
+b = float(raw_input("Entrez le second nombre : "))
+
+if a &gt; b:
+    print "Le plus grand est :", a
+elif b &gt; a:
+    print "Le plus grand est :", b
+else:
+    print "Les deux nombres sont égaux"</code></pre>
+</div>
+</div>
+<div class="alert alert-secondary">
+<h5>Exercice 3 : Mention au Bac</h5>
+<p>Demandez une note sur 20. Affichez la mention correspondante :
+                        <ul>
+<li>Note &lt; 10 : Recalé</li>
+<li>10 &lt;= Note &lt; 12 : Passable</li>
+<li>12 &lt;= Note &lt; 14 : Assez Bien</li>
+<li>14 &lt;= Note &lt; 16 : Bien</li>
+<li>Note &gt;= 16 : Très Bien</li>
+</ul>
+</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap3-final3" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap3-final3">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+note = float(raw_input("Entrez votre note sur 20 : "))
+
+if note &lt; 10:
+    print "Recalé"
+elif note &lt; 12:
+    print "Passable"
+elif note &lt; 14:
+    print "Assez Bien"
+elif note &lt; 16:
+    print "Bien"
+else:
+    print "Très Bien"</code></pre>
+</div>
+</div>
+<div class="alert alert-secondary">
+<h5>Exercice 4 : Année Bissextile</h5>
+<p>Une année est bissextile si elle est divisible par 4, sauf si elle est divisible par 100
+                            (mais elle est quand même bissextile si divisible par 400). Écrivez un script qui détermine
+                            si une année donnée est bissextile.</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap3-final4" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap3-final4">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+annee = int(raw_input("Entrez une année : "))
+
+if (annee % 4 == 0 and annee % 100 != 0) or (annee % 400 == 0):
+    print annee, "est une année bissextile"
+else:
+    print annee, "n'est pas une année bissextile"</code></pre>
+</div>
+</div>
+<div class="alert alert-secondary">
+<h5>Exercice 5 : Login Simple</h5>
+<p>Créez un script qui demande un nom d'utilisateur et un mot de passe. Si le nom est "admin" et
+                            le mot de passe "python", affichez "Bienvenue". Sinon, affichez "Accès refusé".</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap3-final5" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap3-final5">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+user = raw_input("Utilisateur : ")
+password = raw_input("Mot de passe : ")
+
+if user == "admin" and password == "python":
+    print "Bienvenue, administrateur !"
+else:
+    print "Accès refusé."</code></pre>
+</div>
+</div>
+<h3>Conclusion du Chapitre</h3>
+<p>Les structures conditionnelles sont l'une des bases fondamentales de la programmation. Elles
+                        permettent à vos programmes de prendre des décisions intelligentes et de réagir différemment
+                        selon le contexte.</p>
+<p>Félicitations pour avoir parcouru ce cours. Vous possédez maintenant les outils pour diriger le
+                        flux d'exécution de vos programmes Python, ouvrant la voie à des applications beaucoup plus
+                        complexes et interactives.</p>
+<p><strong>Points essentiels à retenir :</strong></p>
+<ul>
+<li>Utilisez <code>if</code> pour une décision simple</li>
+<li>Utilisez <code>if/else</code> pour deux alternatives</li>
+<li>Utilisez <code>if/elif/else</code> pour plusieurs alternatives</li>
+<li>Combinez les conditions avec <code>and</code>, <code>or</code>, <code>not</code></li>
+<li>Respectez toujours l'indentation et la syntaxe Python</li>
+</ul>
+<p><strong>Prochaines étapes :</strong> Explorez les boucles (<code>while</code>, <code>for</code>)
+                        pour répéter des instructions, puis les fonctions pour organiser votre code en modules
+                        réutilisables. Ces concepts, combinés aux structures conditionnelles, vous permettront de
+                        construire des systèmes complets.</p>
+<p>Bon apprentissage!</p>
+</section>
+</section></main>
+<div class="chapter-nav"><a href="chapitre2.html" class="btn">← Précédent</a><a href="chapitre4.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>

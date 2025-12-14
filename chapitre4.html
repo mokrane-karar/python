@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Chapitre 4. Maîtriser les Boucles en Python 2.7</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link ">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="chap4">
+<h2>Chapitre 4. Maîtriser les Boucles en Python 2.7</h2>
+<div class="alert alert-info">
+<h4 class="alert-heading">Objectifs Pédagogiques</h4>
+<p>À la fin de ce chapitre, vous serez capable de :</p>
+<ul>
+<li>Comprendre le concept d'itération et l'importance des boucles pour éviter la répétition de
+                            code (principe DRY - Don't Repeat Yourself).</li>
+<li>Identifier et utiliser les deux types de boucles : <code>while</code> et <code>for</code>.
+                        </li>
+<li>Écrire des boucles <code>while</code> basées sur une condition.</li>
+<li>Écrire des boucles <code>for</code> pour itérer sur des séquences (listes, tuples, chaînes
+                            de caractères).</li>
+<li>Distinguer <code>range()</code> et <code>xrange()</code> et savoir quand utiliser ce dernier
+                            pour l'efficacité en Python 2.7.</li>
+<li>Contrôler l'exécution des boucles à l'aide des instructions <code>break</code> et
+                            <code>continue</code>.
+                        </li>
+<li>Utiliser la clause <code>else</code> dans les boucles.</li>
+<li>Construire des boucles imbriquées pour des itérations complexes.</li>
+</ul>
+<hr/>
+<p class="mb-0"><strong>Durée estimée :</strong> Théorie (2h), Pratique (2-3h).</p>
+</div>
+<h3 id="c4-A">4-A. Introduction aux Boucles (Quoi et Pourquoi ?)</h3>
+<p>Une boucle est une structure de contrôle qui permet d'exécuter un bloc de code plusieurs fois. C'est
+                    le cœur de l'automatisation en programmation. Son but principal est d'éviter la répétition de code,
+                    un principe connu sous l'acronyme <strong>DRY</strong> (Don't Repeat Yourself - Ne vous répétez
+                    pas).</p>
+<p>Python propose deux types de boucles :</p>
+<ul>
+<li><strong>Boucle <code>while</code> :</strong> Répète le code <strong>tant qu'</strong>une
+                        condition est vraie. Idéale quand on ne connaît pas le nombre d'itérations à l'avance.</li>
+<li><strong>Boucle <code>for</code> :</strong> Répète le code <strong>pour chaque</strong> élément
+                        d'une séquence (liste, chaîne, etc.). Parfaite pour parcourir une collection d'éléments.</li>
+</ul>
+<h3 id="c4-B">4-B. La Boucle <code>while</code> (Boucle conditionnelle)</h3>
+<p>La boucle <code>while</code> est la plus simple conceptuellement. Elle continue de tourner tant que
+                    sa condition d'entrée est évaluée à <code>True</code>.</p>
+<pre><code class="language-python"># Syntaxe de la boucle while
+while condition_booleenne:
+    # Bloc de code a executer
+    # !! Important : Mettre a jour la variable de condition
+</code></pre>
+<p><strong>Fonctionnement :</strong></p>
+<ol>
+<li>La <code>condition_booleenne</code> est évaluée.</li>
+<li>Si <code>True</code>, le bloc de code indenté est exécuté.</li>
+<li>Le programme retourne à l'étape 1 et réévalue la condition.</li>
+<li>Si <code>False</code>, le bloc est ignoré et le programme continue son exécution après la
+                        boucle.</li>
+</ol>
+<p><strong>Exemple : Un simple compteur</strong></p>
+<pre><code class="language-python"># Syntaxe Python 2.7
+compteur = 0
+while compteur &lt; 5:
+    print "Le compteur est a :", compteur
+    compteur = compteur + 1  # ou compteur += 1
+
+print "Fin de la boucle while."
+</code></pre>
+<div class="alert alert-danger">
+<h4 class="alert-heading">Piège courant : La boucle infinie</h4>
+<p>Si la condition de la boucle <code>while</code> reste toujours <code>True</code>, la boucle ne
+                        s'arrêtera jamais. Cela peut arriver si vous oubliez de mettre à jour la variable qui contrôle
+                        la condition. Vous pouvez généralement arrêter un script bloqué dans une boucle infinie en
+                        appuyant sur <strong>Ctrl+C</strong> dans votre terminal.</p>
+</div>
+<h3 id="c4-C">4-C. La Boucle <code>for</code> (Boucle d'itération)</h3>
+<p>La boucle <code>for</code> est conçue pour itérer (parcourir) les éléments d'une séquence. Elle est
+                    plus sûre que la boucle <code>while</code> car elle se termine automatiquement après le dernier
+                    élément.</p>
+<pre><code class="language-python"># Syntaxe de la boucle for
+for variable_temporaire in sequence:
+    # Bloc de code a executer avec la variable_temporaire
+</code></pre>
+<p><strong>Exemple 1 : Itérer sur une liste</strong></p>
+<pre><code class="language-python">fruits = ["pomme", "banane", "cerise"]
+for fruit in fruits:
+    print "J'aime la", fruit
+</code></pre>
+<p><strong>Exemple 2 : Itérer sur une chaîne de caractères</strong></p>
+<pre><code class="language-python">for lettre in "Python":
+    print lettre
+</code></pre>
+<h3 id="c4-D">4-D. Générer des Séquences (range vs. xrange)</h3>
+<p>Pour faire une boucle <code>for</code> un nombre défini de fois, on utilise des fonctions qui
+                    génèrent des séquences de nombres. En Python 2.7, il y en a deux, et le choix est important.</p>
+<ul>
+<li><strong><code>range(stop)</code> ou <code>range(start, stop, step)</code> :</strong> Crée une
+                        <strong>liste complète</strong> en mémoire. Par exemple, <code>range(10)</code> crée la liste
+                        <code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>. C'est très coûteux en mémoire pour de grands
+                        nombres (ex: <code>range(1000000)</code>).
+                    </li>
+<li><strong><code>xrange(stop)</code> ou <code>xrange(start, stop, step)</code> :</strong> Crée un
+                        <strong>itérateur</strong> (un objet générateur). Il ne génère les nombres qu'au fur et à mesure
+                        des besoins de la boucle, sans les stocker. C'est extrêmement efficace en mémoire, quelle que
+                        soit la taille de la plage.
+                    </li>
+</ul>
+<div class="alert alert-success">
+<strong>Bonne pratique en Python 2.7 :</strong> Toujours préférer <code>xrange()</code> à
+                    <code>range()</code> dans les boucles <code>for</code> pour la performance et l'efficacité mémoire.
+                </div>
+<pre><code class="language-python"># Mauvais pour de grands nombres : cree une liste de 1 000 000 d'elements
+# for i in range(1000000):
+#     ...
+
+# Bon : utilise un generateur, efficace et instantane
+for i in xrange(10): # Genere les nombres de 0 a 9
+    print i,
+</code></pre>
+<p class="mt-3"><em>(Note : En Python 3, <code>range()</code> se comporte comme <code>xrange()</code> de
+                        Python 2, et <code>xrange()</code> n'existe plus.)</em></p>
+<h3 id="c4-E">4-E. Contrôle de Flux de Boucle (break et continue)</h3>
+<p>Ces deux instructions permettent de modifier le comportement par défaut d'une boucle.</p>
+<h4><code>break</code> : Quitter la boucle</h4>
+<p>L'instruction <code>break</code> termine immédiatement la boucle (la plus interne) et le programme
+                    continue son exécution après celle-ci.</p>
+<pre><code class="language-python"># Trouver le premier nombre divisible par 7
+nombres = [1, 5, 12, 4, 21, 9, 22]
+for n in nombres:
+    if n % 7 == 0:
+        print "Trouve ! Le premier nombre divisible par 7 est", n
+        break  # Sort de la boucle for
+    print "Element verifie :", n
+</code></pre>
+<h4><code>continue</code> : Sauter à l'itération suivante</h4>
+<p>L'instruction <code>continue</code> ignore le reste du code pour l'itération actuelle et passe
+                    directement à l'élément suivant de la séquence.</p>
+<pre><code class="language-python"># Imprimer uniquement les nombres impairs
+for i in xrange(10):
+    if i % 2 == 0:  # Si i est pair...
+        continue    # ...on saute cette iteration et on passe a la suivante.
+    print i, # Ne s'execute que si i est impair
+</code></pre>
+<h3 id="c4-F">4-F. La Clause <code>else</code> dans les Boucles</h3>
+<p>C'est une particularité de Python. Le bloc <code>else</code> s'exécute si, et seulement si, la boucle
+                    s'est terminée <strong>normalement</strong> (c'est-à-dire sans avoir rencontré d'instruction
+                    <code>break</code>).
+                </p>
+<p>C'est très utile pour les boucles de recherche : le <code>else</code> s'exécute si l'élément n'a pas
+                    été trouvé.</p>
+<pre><code class="language-python"># Verifier si un nombre pair est present
+nombres = [1, 3, 5, 9]
+for n in nombres:
+    if n % 2 == 0:
+        print "Un nombre pair a ete trouve :", n
+        break
+else:
+    # S'execute uniquement si la boucle for se termine (pas de break)
+    print "Aucun nombre pair trouve dans la liste."
+
+# Exemple avec while/else
+compteur = 0
+while compteur &lt; 3:
+    print "Iteration", compteur
+    compteur += 1
+    # if une_condition_speciale:
+    #     break
+else:
+    print "La boucle while s'est terminee normalement."
+</code></pre>
+<h3 id="c4-G">4-G. Les Boucles Imbriquées</h3>
+<p>Une boucle imbriquée est une boucle située à l'intérieur d'une autre. Le fonctionnement est simple :
+                    <strong>la boucle interne s'exécute entièrement pour chaque itération de la boucle externe</strong>.
+                    C'est très utile pour travailler avec des structures en deux dimensions, comme des grilles, des
+                    tables de multiplication ou des coordonnées.
+                </p>
+<pre><code class="language-python"># Boucle externe (lignes)
+for i in xrange(1, 4): # Boucle externe pour les lignes (1, 2, 3)
+    print "Ligne", i
+    # Boucle interne (colonnes)
+    for j in xrange(1, 4): # Boucle interne pour les colonnes (1, 2, 3)
+        print "{0} x {1} = {2}".format(i, j, i*j)
+    print "---" # Separateur apres chaque table
+</code></pre>
+<h3 id="c4-H">4-H. Gérer les erreurs de type avec try et except ValueError</h3>
+<p>Lorsque nous demandons à un utilisateur de saisir des données, en particulier des nombres, nous ne
+                    pouvons jamais être sûrs que la saisie sera correcte. L'utilisateur peut accidentellement taper des
+                    lettres ou des symboles, ce qui provoquerait une erreur si nous essayons de convertir cette entrée
+                    en nombre entier avec <code>int()</code>. C'est là que la gestion des erreurs avec
+                    <code>try...except</code> devient essentielle.
+                </p>
+<h4>Le problème : l'erreur <code>ValueError</code></h4>
+<p>Considérez le code suivant, qui demande un âge à l'utilisateur :</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+age_str = raw_input("Quel est votre âge ? ")
+age = int(age_str) # Essaye de convertir la chaîne en entier
+print "Vous avez", age, "ans."
+</code></pre>
+<p>Si l'utilisateur entre "25", tout fonctionne parfaitement. Mais s'il entre "vingt-cinq" ou "abc", le
+                    programme s'arrêtera brutalement avec une erreur <code>ValueError</code>, car <code>int()</code> ne
+                    sait pas comment convertir ce texte en nombre.</p>
+<div class="alert alert-danger">
+<h4 class="alert-heading">Exemple d'erreur fatale</h4>
+<pre><code class="language-python">Traceback (most recent call last):
+  File "test.py", line 2, in <module>
+    age = int(age_str)
+ValueError: invalid literal for int() with base 10: 'abc'</module></code></pre>
+</div>
+<h4>La solution : le bloc <code>try...except</code></h4>
+<p>Pour éviter ce plantage, nous pouvons "essayer" (<code>try</code>) d'exécuter le code qui pourrait
+                    échouer. Si une erreur se produit, nous pouvons la "capturer" (<code>except</code>) et exécuter un
+                    bloc de code alternatif au lieu de laisser le programme s'arrêter.</p>
+<p>La syntaxe est la suivante :</p>
+<pre><code class="language-python">try:
+    # Bloc de code à essayer
+    # C'est ici qu'on met l'opération risquée
+    operation_a_risque()
+except TypeDeLErreur:
+    # Bloc de code à exécuter si TypeDeLErreur se produit
+    print "Une erreur s'est produite !"
+</code></pre>
+<p>Dans notre cas, l'opération à risque est <code>int(age_str)</code> et le type d'erreur que nous
+                    voulons attraper est <code>ValueError</code>.</p>
+<h5>Exemple corrigé avec <code>try...except</code></h5>
+<p>Voici comment nous pouvons rendre notre code robuste :</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+age_str = raw_input("Quel est votre âge ? ")
+try:
+    age = int(age_str)
+    print "Vous avez", age, "ans."
+    # Le reste du code qui dépend de 'age' doit être ici
+except ValueError:
+    print "Erreur : Veuillez entrer un nombre valide."
+</code></pre>
+<p>Avec ce code, si l'utilisateur entre "abc", le programme n'échouera pas. Au lieu de cela, il
+                    exécutera le bloc <code>except</code> et affichera un message d'erreur convivial, puis continuera
+                    son exécution normally.</p>
+<h4>Utilisation dans une boucle <code>while</code> pour forcer une saisie correcte</h4>
+<p>La véritable puissance de <code>try...except</code> se révèle lorsqu'on le combine avec une boucle
+                    <code>while</code>. Nous pouvons continuer à demander une entrée à l'utilisateur <strong>tant qu'il
+                        n'a pas fourni une valeur valide</strong>.
+                </p>
+<p>Pour cela, nous utilisons une boucle infinie (<code>while True</code>) que nous ne quittons (avec
+                    <code>break</code>) que lorsque la conversion a réussi.
+                </p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+while True: # Boucle infinie
+    age_str = raw_input("Quel est votre âge ? ")
+    try:
+        age = int(age_str)
+        # Si la ligne ci-dessus réussit, on sort de la boucle
+        break
+    except ValueError:
+        # Si int() échoue, on affiche un message et la boucle recommence
+        print "Entrée invalide. Veuillez entrer un nombre entier."
+
+# Le programme ne continue ici que si 'age' est un entier valide
+print "Merci. Vous avez saisi un âge de", age, "ans."
+</code></pre>
+<div class="alert alert-info">
+<h4 class="alert-heading">Analyse du flux d'exécution</h4>
+<ol>
+<li>La boucle <code>while True</code> commence.</li>
+<li>Le programme demande l'âge.</li>
+<li>Le bloc <code>try</code> tente de convertir l'entrée en <code>int</code>.</li>
+<li><strong>Cas 1 (succès) :</strong> La conversion réussit. L'instruction <code>break</code>
+                            est exécutée, ce qui met fin à la boucle <code>while</code>. Le programme continue après la
+                            boucle.</li>
+<li><strong>Cas 2 (échec) :</strong> Une <code>ValueError</code> se produit. Le reste du bloc
+                            <code>try</code> est ignoré. Le bloc <code>except ValueError</code> est exécuté, affichant
+                            un message d'erreur. L'instruction <code>break</code> n'est jamais atteinte, donc la boucle
+                            recommence depuis le début.
+                        </li>
+</ol>
+</div>
+<p>Cette structure est extrêmement courante et constitue une bonne pratique pour créer des programmes
+                    interactifs et robustes qui ne plantent pas à la première erreur de l'utilisateur.</p>
+<hr class="my-5"/>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Résumé du Chapitre 4</h4>
+<ol>
+<li><strong><code>while</code></strong> pour les conditions indéfinies,
+                                <strong><code>for</code></strong> pour les séquences définies.
+                            </li>
+<li>Toujours préférer <strong><code>xrange()</code></strong> à <code>range()</code> dans les
+                                boucles <code>for</code> en Python 2.7 pour la performance.</li>
+<li><strong><code>break</code></strong> arrête la boucle,
+                                <strong><code>continue</code></strong> saute l'itération en cours.
+                            </li>
+<li>La clause <strong><code>else</code></strong> d'une boucle s'exécute si la boucle se
+                                termine sans <code>break</code>.</li>
+<li>Attention aux <strong>boucles infinies</strong> avec <code>while</code> : toujours
+                                s'assurer que la condition peut devenir fausse.</li>
+<li>Utiliser <strong><code>try...except ValueError</code></strong> pour gérer les erreurs de
+                                saisie de l'utilisateur et éviter les plantages du programme, notamment lors de la
+                                conversion de types avec <code>int()</code>.</li>
+</ol>
+</div>
+</div>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title" id="chap4-exercices">Exercices Pratiques</h4>
+<h5 class="mt-4">1. Jeu "Devinez le nombre" (<code>while</code>)</h5>
+<p>
+                            Définissez un <code>nombre_secret = 7</code>.
+                            Demandez à l'utilisateur de deviner un nombre (utiliser <code>raw_input()</code>) tant qu'il
+                            n'a pas trouvé le bon.
+                            Donnez des indices ("Trop grand", "Trop petit").
+                        </p>
+<p><button aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap4-ex1" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap4-ex1">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+nombre_secret = 7
+essai = 0
+print "J'ai choisi un nombre entre 1 et 10. Devinez lequel !"
+while essai != nombre_secret:
+    try:
+        essai_str = raw_input("Votre proposition : ")
+        essai = int(essai_str)
+        if essai &lt; nombre_secret:
+            print "C'est plus grand !"
+        elif essai &gt; nombre_secret:
+            print "C'est plus petit !"
+    except ValueError:
+        print "Veuillez entrer un nombre valide."
+print "Bravo, vous avez trouvé !"
+</code></pre>
+</div>
+<h5 class="mt-4">2. Table de Multiplication (<code>for</code>/<code>xrange</code>)</h5>
+<p>
+                            Demandez à l'utilisateur un nombre (ex: 8).
+                            Affichez sa table de multiplication de 1 à 10 en utilisant <code>xrange(1, 11)</code>.
+                            Format de sortie attendu : "8 x 1 = 8", "8 x 2 = 16", ...</p>
+<p><button aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap4-ex2" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap4-ex2">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+try:
+    num_str = raw_input("Entrez un nombre pour voir sa table de multiplication : ")
+    nombre = int(num_str)
+    print "--- Table de {0} ---".format(nombre)
+    for i in xrange(1, 11):
+        print "{0} x {1} = {2}".format(nombre, i, nombre * i)
+except ValueError:
+    print "Entrée invalide."
+</code></pre>
+</div>
+<h5 class="mt-4">3. Somme des Éléments (<code>for</code>)</h5>
+<p>Créez une liste <code>chiffres = [10, 20, 30, 40, 50]</code>. Calculez et affichez la somme
+                            de tous les éléments de la liste en utilisant une boucle <code>for</code>.</p>
+<p><button aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap4-ex3" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap4-ex3">
+<pre><code class="language-python">chiffres = [10, 20, 30, 40, 50]
+somme = 0
+for chiffre in chiffres:
+    somme += chiffre
+print "La somme des elements est :", somme
+</code></pre>
+</div>
+<h5 class="mt-4">4. Filtrage de Négatifs (<code>for</code>/<code>continue</code>)</h5>
+<p>Créez une liste <code>donnees = [12, -5, 20, -1, 8, -10]</code>. Itérez sur la liste et
+                            n'affichez que les nombres positifs (utilisez <code>continue</code> pour sauter les
+                            négatifs).</p>
+<p><button aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap4-ex4" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap4-ex4">
+<pre><code class="language-python">donnees = [12, -5, 20, -1, 8, -10]
+print "Nombres positifs trouves :"
+for d in donnees:
+    if d &lt; 0:
+        continue
+    print d
+</code></pre>
+</div>
+<h5 class="mt-4">5. Recherche de Nombre Premier (<code>for</code>/<code>else</code>)</h5>
+<p>
+                            Demandez un nombre à l'utilisateur (ex: 13).
+                            Utilisez une boucle <code>for</code> avec <code>xrange(2, nombre)</code> pour vérifier s'il
+                            a des diviseurs.
+                            Si un diviseur est trouvé, <code>break</code> et affichez "N'est pas premier".
+                            Utilisez la clause <code>else</code> pour afficher "Est premier" si la boucle se termine
+                            sans <code>break</code>.</p>
+<p><button aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap4-ex5" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap4-ex5">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+try:
+    nombre = int(raw_input("Entrez un nombre entier superieur a 1 : "))
+    if nombre &lt;= 1:
+        print "Le nombre doit etre superieur a 1."
+    else:
+        for i in xrange(2, nombre):
+            if nombre % i == 0:
+                print "{0} n'est pas un nombre premier (divisible par {1}).".format(nombre, i)
+                break
+        else:
+            print "{0} est un nombre premier.".format(nombre)
+except ValueError:
+    print "Entrée invalide."
+</code></pre>
+</div>
+<h5 class="mt-4">6. Dessiner un Triangle (Boucles imbriquées)</h5>
+<p>Affichez le motif suivant en utilisant des boucles <code>for</code> imbriquées et
+                            <code>xrange()</code> :
+                        </p>
+<pre><code class="language-python">*
+**
+***
+****
+*****
+</code></pre>
+<p><button aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap4-ex6" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap4-ex6">
+<pre><code class="language-python">hauteur = 5
+for i in xrange(1, hauteur + 1):
+    ligne = ""
+    for j in xrange(i):
+        ligne += "*"
+    print ligne
+</code></pre>
+</div>
+</div>
+</div>
+<h4>Projet Final : Jeu "Devinez le nombre" complet</h4>
+<p>Écrivez un programme qui implémente le jeu "Devinez le nombre" avec les fonctionnalités suivantes :
+                </p>
+<p>Ce projet combine les structures conditionnelles que vous avez apprises avec le concept de boucles
+                    (`while True`) que vous explorerez plus tard, mais qui est essentiel pour un jeu interactif.
+                    Concentrez-vous sur l'utilisation correcte de `if`, `elif` et `else` pour fournir la bonne
+                    rétroaction à l'utilisateur.</p>
+<pre><code class="language-python"># Votre programme doit:
+# 1. Générer un nombre secret entre 1 et 100 (utilisez import random)
+# 2. Demander à l'utilisateur de deviner
+# 3. Donner des indices : "Trop haut" ou "Trop bas"
+# 4. Compter le nombre de tentatives
+# 5. Afficher un message de victoire avec le nombre de tentatives
+# 6. Proposer de recommencer
+#
+# Exemple de sortie:
+# "Bienvenue au jeu du nombre secret!"
+# "J'ai un nombre entre 1 et 100, devinez!"
+# "Votre proposition: 50"
+# "C'est plus bas!"
+# "Votre proposition: 25"
+# "C'est plus haut!"
+# "Votre proposition: 37"
+# "Bravo! Vous avez trouve! (2 tentatives)"</code></pre>
+<h5>Solution proposée (complète) :</h5>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+import random
+
+def jouer_partie():
+    # 1. Générer un nombre secret
+    nombre_secret = random.randint(1, 100)
+    tentatives = 0
+    print u"J'ai choisi un nombre secret entre 1 et 100."
+    
+    while True:
+        # 2. Demander à l'utilisateur (avec gestion d'erreur)
+        try:
+            nombre_str = raw_input(u"Devinez: ")
+            nombre = int(nombre_str)
+        except ValueError:
+            print u"Veuillez entrer un nombre valide."
+            continue # Recommence la boucle while
+
+        # 4. Compter les tentatives
+        tentatives += 1
+            
+        # 3. Donner des indices
+        if nombre == nombre_secret:
+            # 5. Afficher message de victoire
+            print u"Bravo! Vous avez trouvé en %d tentatives." % tentatives
+            # Alternative avec .format():
+            # print u"Bravo! Vous avez trouvé en {} tentatives.".format(tentatives)
+            break # Sort de la boucle du jeu (jouer_partie)
+        elif nombre &lt; nombre_secret:
+            print u"C'est plus haut!"
+        else:
+            print u"C'est plus bas!"
+
+# --- Boucle principale du jeu ---
+print u"Bienvenue au jeu du nombre secret!"
+
+while True:
+    jouer_partie() # Lance une partie
+    
+    # 6. Proposer de recommencer
+    rejouer = raw_input(u"Voulez-vous rejouer? (oui/non): ")
+    
+    # .lower() convertit la réponse en minuscules pour la comparaison
+    if rejouer.lower() != 'oui':
+        print u"Merci d'avoir joué. Au revoir!"
+        break # Sort de la boucle principale (fin du programme)</code></pre>
+</section></main>
+<div class="chapter-nav"><a href="chapitre3.html" class="btn">← Précédent</a><a href="chapitre5.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>

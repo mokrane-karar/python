@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Chapitre 5. Les Structures de Données : Organiser l'Information</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link ">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="chap5">
+<h2>Chapitre 5. Les Structures de Données : Organiser l'Information</h2>
+<div class="alert alert-info">
+<h4 class="alert-heading">Objectifs du chapitre</h4>
+<p>À la fin de ce chapitre, vous serez capable de :</p>
+<ul>
+<li>Comprendre et utiliser les quatre structures de données intégrées principales :
+                            <strong>listes, tuples, dictionnaires et ensembles (sets)</strong>.
+                        </li>
+<li>Choisir la structure de données la plus appropriée en fonction du problème à résoudre.</li>
+<li>Manipuler les listes : ajout, suppression, modification, tri et découpage (slicing).</li>
+<li>Créer des listes de manière concise avec les <strong>listes en compréhension</strong>.</li>
+<li>Comprendre l'immuabilité des tuples et leurs cas d'utilisation, notamment le
+                            <strong>dépaquetage</strong>.
+                        </li>
+<li>Maîtriser les dictionnaires pour stocker et récupérer des données via des paires clé-valeur.
+                        </li>
+<li>Utiliser les ensembles pour gérer des collections d'éléments uniques et effectuer des
+                            opérations mathématiques.</li>
+</ul>
+</div>
+<p>
+                    Imaginez que vous deviez gérer non pas une seule résistance de béton, mais les résultats de 50
+                    échantillons. Utiliser 50 variables différentes (<code>res1</code>, <code>res2</code>,
+                    <code>res3</code>...) serait un cauchemar ! C'est là qu'interviennent les structures de données :
+                    des conteneurs spécialisés pour organiser, stocker et manipuler efficacement de grands ensembles
+                    d'informations.
+                </p>
+<h3 id="c5-A">5-A. Les Listes : Le Couteau Suisse des Collections</h3>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>Une <strong>liste</strong>, c'est comme une <strong>liste de courses</strong>. Vous pouvez y
+                        ajouter des choses, en enlever, changer leur ordre, et lire ce qu'il y a à une certaine
+                        position. C'est une collection <strong>ordonnée</strong> et <strong>modifiable</strong>.</p>
+</div>
+<p>Une liste est la structure de données la plus courante et la plus polyvalente. Imaginez-la comme une
+                    étagère avec des casiers numérotés, commençant à 0. Chaque casier peut contenir une valeur de
+                    n'importe quel type.</p>
+<img alt="Schéma d'une liste Python montrant les index positifs (0, 1, 2...) et négatifs (-1, -2...)" class="img-fluid rounded my-3 mx-auto d-block zoomable-image" src="https://www.tutorialkart.com/img/python/python-list-index-1.svg" style="max-width: 500px;"/>
+<div class="alert alert-info">
+<strong>Propriétés Clés :</strong>
+<ul>
+<li><strong>Ordonnée :</strong> Les éléments restent dans l'ordre où vous les avez ajoutés.</li>
+<li><strong>Mutable (Modifiable) :</strong> Vous pouvez modifier, ajouter ou supprimer des
+                            éléments après sa création.</li>
+<li><strong>Indexée :</strong> Chaque élément est accessible par sa position (son "index"), à
+                            partir de 0.</li>
+<li><strong>Hétérogène :</strong> Peut contenir des éléments de types différents (même si c'est
+                            souvent une mauvaise pratique).</li>
+</ul>
+</div>
+<pre><code class="language-python"># Une liste de résistances de béton (en MPa)
+resistances = [28.5, 31.2, 29.8, 33.1, 30.5]
+print "Liste initiale:", resistances
+
+# Accéder à un élément par son index (la numérotation commence à 0 !)
+premier_element = resistances[0] # Le premier casier, à l'index 0
+print "Première résistance:", premier_element # Affiche 28.5
+
+# L'index -1 désigne toujours le dernier élément
+dernier_element = resistances[-1]
+print "Dernière résistance:", dernier_element # Affiche 30.5
+
+# Modifier un élément
+print "Modification de la première valeur..."
+resistances[0] = 29.0 # On remplace la valeur à l'index 0
+print "Nouvelle liste:", resistances
+</code></pre>
+<h4 id="c5-A-1">Opérations courantes sur les listes</h4>
+<p>Les listes viennent avec de nombreuses "méthodes" utiles qui modifient la liste en place.</p>
+<pre><code class="language-python"># Ajouter un élément à la fin
+resistances.append(27.9)
+print "Après .append(27.9):", resistances
+
+# Insérer un élément à une position spécifique (index, valeur)
+resistances.insert(1, 35.0)
+print "Après .insert(1, 35.0):", resistances
+
+# Supprimer le dernier élément et le retourner
+element_retire = resistances.pop()
+print "Élément retiré avec .pop():", element_retire
+print "Liste après .pop():", resistances
+
+# Supprimer la première occurrence d'une valeur
+resistances.remove(29.8)
+print "Après .remove(29.8):", resistances
+
+# Trier la liste (modifie la liste en place)
+resistances.sort()
+print "Liste triée:", resistances
+
+# Inverser l'ordre de la liste (modifie la liste en place)
+resistances.reverse()
+print "Liste inversée:", resistances
+
+# Obtenir la taille de la liste
+print "Nombre d'échantillons:", len(resistances)
+
+# Compter le nombre d'occurrences d'un élément
+print "Nombre d'occurrences de 35.0:", resistances.count(35.0)
+</code></pre>
+<h4 id="c5-A-2">Découper les listes (Slicing)</h4>
+<p>Le "slicing" est une technique puissante pour extraire des sous-parties d'une liste sans la modifier.
+                    La syntaxe est <code>ma_liste[debut:fin:pas]</code>.</p>
+<pre><code class="language-python">valeurs = [10, 20, 30, 40, 50, 60, 70, 80]
+
+# Extraire les éléments de l'index 1 à 3 (l'index 4 est exclu)
+sous_liste = valeurs[1:4]
+print "valeurs[1:4] -&gt;", sous_liste # Affiche [20, 30, 40]
+
+# Du début jusqu'à l'index 2 (exclu)
+debut = valeurs[:2]
+print "valeurs[:2] -&gt;", debut # Affiche [10, 20]
+
+# De l'index 3 jusqu'à la fin
+fin = valeurs[3:]
+print "valeurs[3:] -&gt;", fin # Affiche [40, 50, 60, 70, 80]
+
+# Un élément sur deux
+un_sur_deux = valeurs[::2]
+print "valeurs[::2] -&gt;", un_sur_deux # Affiche [10, 30, 50, 70]
+
+# Créer une copie complète de la liste
+copie = valeurs[:]
+print "Copie:", copie
+</code></pre>
+<h4 id="c5-A-3">Création avancée : Les Listes en Compréhension</h4>
+<p>Plutôt que de créer une liste vide et d'y ajouter des éléments avec une boucle <code>for</code>,
+                    Python offre une syntaxe plus élégante et efficace : la <strong>liste en compréhension</strong>.</p>
+<p><strong>Sans liste en compréhension :</strong></p>
+<pre><code class="language-python">carres = []
+for i in xrange(10):
+    carres.append(i ** 2)
+print carres
+# Affiche: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+</code></pre>
+<p><strong>Avec une liste en compréhension :</strong></p>
+<pre><code class="language-python">carres = [i ** 2 for i in xrange(10)]
+print carres
+# Affiche: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+</code></pre>
+<p>On peut même y ajouter une condition pour filtrer les éléments :</p>
+<pre><code class="language-python"># Ne garder que les carrés des nombres pairs
+carres_pairs = [i ** 2 for i in xrange(10) if i % 2 == 0]
+print carres_pairs
+# Affiche: [0, 4, 16, 36, 64]
+</code></pre>
+<h3 id="c5-B">5-B. Les Tuples : Les Constantes Ordonnées</h3>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>Un <strong>tuple</strong>, c'est comme une liste mais <strong>gravée dans le marbre</strong>. Une
+                        fois que vous l'avez créé, vous ne pouvez plus rien y changer. C'est utile pour des données qui
+                        ne doivent absolument pas être modifiées par erreur, comme les coordonnées d'un point ou une
+                        date de naissance.</p>
+</div>
+<p>Un tuple est très similaire à une liste, à une différence fondamentale près : il est
+                    <strong>immuable</strong>. Une fois qu'un tuple est créé, il ne peut plus être modifié. On l'utilise
+                    pour des données qui ne sont pas censées changer.
+                </p>
+<div class="alert alert-info">
+<strong>Propriétés Clés :</strong>
+<ul>
+<li><strong>Ordonnée :</strong> Comme une liste.</li>
+<li><strong>Immuable (Non modifiable) :</strong> C'est la grande différence !</li>
+<li><strong>Indexée :</strong> Comme une liste.</li>
+<li>Plus rapide et moins gourmand en mémoire qu'une liste.</li>
+</ul>
+</div>
+<pre><code class="language-python"># Un tuple pour stocker les dimensions (longueur, largeur, hauteur)
+dimensions_poutre = (6.0, 0.25, 0.5) # en mètres
+
+# On peut accéder aux éléments comme avec une liste
+longueur = dimensions_poutre[0]
+print "Longueur:", longueur
+
+# Mais les lignes suivantes provoqueraient des erreurs
+dimensions_poutre[0] = 7.0
+dimensions_poutre.append(0.1)
+</code></pre>
+<h4 id="c5-B-1">"Tuple Unpacking" (Dépaquetage)</h4>
+<p>Le dépaquetage est une technique très pratique qui permet d'assigner les valeurs d'un tuple à
+                    plusieurs variables en une seule ligne. C'est particulièrement utile avec les fonctions qui
+                    retournent plusieurs valeurs.</p>
+<pre><code class="language-python">def get_min_max(valeurs):
+    """Retourne la valeur minimale et maximale d'une liste."""
+    val_min = min(valeurs)
+    val_max = max(valeurs)
+    return (val_min, val_max) # On retourne un tuple
+
+resistances = [28, 31, 22, 35]
+# "Dépaquetage" du tuple retourné par la fonction
+min_res, max_res = get_min_max(resistances) 
+print "Résistance min: {0}, max: {1}".format(min_res, max_res)
+</code></pre>
+<h3 id="c5-C">5-C. Les Dictionnaires : L'Armoire à Tiroirs Étiquetés</h3>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>Un <strong>dictionnaire</strong>, c'est comme un <strong>carnet d'adresses</strong>. Au lieu de
+                        retrouver une information par sa position (0, 1, 2...), on la retrouve grâce à une "clé" unique
+                        (comme un nom). Chaque clé est associée à une "valeur".</p>
+</div>
+<p>Si la liste est une étagère numérotée, le dictionnaire est une armoire à tiroirs où chaque tiroir a
+                    une étiquette unique (une "clé"). Vous utilisez la clé pour accéder à la valeur.</p>
+<img alt="Schéma d'un dictionnaire Python illustrant les paires clé-valeur" class="img-fluid rounded my-3 mx-auto d-block zoomable-image" src="https://logicmojo.com/assets/dist/new_pages/images/pythondict.png" style="max-width: 450px;"/>
+<div class="alert alert-info">
+<strong>Propriétés Clés :</strong>
+<ul>
+<li><strong>Non ordonnée (en Python 2.7) :</strong> Les éléments n'ont pas d'ordre garanti.</li>
+<li><strong>Mutable :</strong> Vous pouvez ajouter, modifier ou supprimer des paires clé-valeur.
+                        </li>
+<li><strong>Clés uniques :</strong> Chaque clé doit être unique et de type
+                            <strong>immuable</strong> (string, nombre, tuple).
+                        </li>
+</ul>
+</div>
+<pre><code class="language-python"># Dictionnaire décrivant un profilé métallique
+profil_heb200 = {
+    "designation": "HEB 200",
+    "hauteur": 200,      # en mm
+    "largeur": 200,      # en mm
+    "masse_lineique": 61.3 # en kg/m
+}
+print "Profilé:", profil_heb200
+
+# Accéder à une valeur par sa clé
+masse = profil_heb200["masse_lineique"]
+print "La masse linéique est de", masse, "kg/m"
+
+# Ajouter ou modifier une paire clé-valeur
+profil_heb200["materiau"] = "Acier S235" # Ajout
+profil_heb200["hauteur"] = 201.5 # Modification
+print "Profilé mis à jour:", profil_heb200
+
+# Supprimer une clé
+del profil_heb200["largeur"]
+print "Après suppression de 'largeur':", profil_heb200
+
+# Accès sécurisé avec .get() pour éviter les erreurs
+# profil_heb200["inertie"] # Provoquerait une KeyError
+inertie = profil_heb200.get("inertie", 0.0) # Renvoie 0.0 si la clé n'existe pas
+print "Inertie (valeur par défaut):", inertie
+</code></pre>
+<h4 id="c5-C-1">Itérer sur les dictionnaires</h4>
+<p>Il y a plusieurs façons de parcourir le contenu d'un dictionnaire. En Python 2.7, il est plus
+                    efficace d'utiliser <code>.iterkeys()</code>, <code>.itervalues()</code> et
+                    <code>.iteritems()</code> qui sont des générateurs (comme <code>xrange</code>).
+                </p>
+<pre><code class="language-python"># Itérer sur les clés (comportement par défaut)
+print "\n--- Clés ---"
+for cle in profil_heb200.iterkeys():
+    print cle
+
+# Itérer sur les valeurs
+print "\n--- Valeurs ---"
+for valeur in profil_heb200.itervalues():
+    print valeur
+
+# Itérer sur les paires clé-valeur (le plus courant et efficace)
+print "\n--- Clés et Valeurs ---"
+for cle, valeur in profil_heb200.iteritems():
+    print "{0}: {1}".format(cle, valeur)
+</code></pre>
+<h4 id="c5-C-2">Dictionnaires en Compréhension</h4>
+<p>Tout comme les listes, on peut créer des dictionnaires de manière concise.</p>
+<pre><code class="language-python"># Créer un dictionnaire de carrés
+carres_dict = {x: x*x for x in xrange(5)}
+print carres_dict
+# Affiche: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+# Inverser un dictionnaire (si les valeurs sont uniques)
+notes = {"Alice": 18, "Bob": 15, "Charlie": 20}
+ranking = {note: nom for nom, note in notes.iteritems()}
+print ranking
+# Affiche: {18: 'Alice', 15: 'Bob', 20: 'Charlie'}
+</code></pre>
+<h3 id="c5-D">5-D. Les Ensembles (Sets) : L'Unicité Avant Tout</h3>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>Un <strong>ensemble</strong> (ou <code>set</code>), c'est comme un sac de billes uniques. Vous
+                        pouvez y ajouter des billes, mais si vous essayez d'ajouter une bille qui est déjà dedans, rien
+                        ne se passe. C'est parfait pour supprimer les doublons d'une liste ou pour vérifier très
+                        rapidement si un élément est présent.</p>
+</div>
+<p>Un ensemble est une collection non ordonnée d'éléments <strong>uniques</strong>. Sa principale
+                    utilité est de tester l'appartenance d'un élément à une collection de manière très efficace et de
+                    réaliser des opérations mathématiques sur les ensembles (union, intersection, différence).</p>
+<div class="alert alert-info">
+<strong>Propriétés Clés :</strong>
+<ul>
+<li><strong>Non ordonnée :</strong> Les éléments n'ont pas d'ordre.</li>
+<li><strong>Mutable :</strong> Vous pouvez ajouter ou supprimer des éléments.</li>
+<li><strong>Éléments uniques :</strong> Les doublons sont automatiquement supprimés.</li>
+</ul>
+</div>
+<pre><code class="language-python"># Créer un ensemble à partir d'une liste avec des doublons
+numeros = [1, 2, 2, 3, 4, 4, 4, 5]
+ensemble_numeros = set(numeros)
+print "Ensemble à partir de la liste:", ensemble_numeros # Affiche set([1, 2, 3, 4, 5])
+
+# Ajouter un élément
+ensemble_numeros.add(6)
+print "Après .add(6):", ensemble_numeros
+
+ensemble_numeros.add(2) # Ajouter un élément déjà présent ne change rien
+print "Après .add(2):", ensemble_numeros
+
+# Vérifier si un élément est présent (très rapide !)
+print "Est-ce que 3 est dans l'ensemble ?", 3 in ensemble_numeros # Affiche True
+</code></pre>
+<h4 id="c5-D-1">Opérations sur les ensembles</h4>
+<p>Les ensembles sont particulièrement puissants pour les opérations mathématiques.</p>
+<pre><code class="language-python">ingenieurs_logiciel = {"Alice", "Bob", "Charlie", "David"}
+ingenieurs_structure = {"Charlie", "David", "Eve", "Frank"}
+
+# Union : tous les ingénieurs
+print "Union:", ingenieurs_logiciel.union(ingenieurs_structure)
+# Intersection : ceux qui sont dans les deux équipes
+print "Intersection:", ingenieurs_logiciel.intersection(ingenieurs_structure)
+# Différence : ceux qui sont en logiciel mais PAS en structure
+print "Différence (Logiciel - Structure):", ingenieurs_logiciel.difference(ingenieurs_structure)
+# Différence symétrique : ceux qui sont dans une seule des deux équipes
+print "Différence symétrique:", ingenieurs_logiciel.symmetric_difference(ingenieurs_structure)
+</code></pre>
+<h3 id="c5-E">5-E. Choisir la Bonne Structure</h3>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Quand utiliser quoi ?</h4>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Structure</th>
+<th>Quand l'utiliser ?</th>
+<th>Exemple d'application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Liste</strong></td>
+<td>Pour une collection ordonnée et modifiable d'éléments, où les doublons sont
+                                        permis.</td>
+<td><code>resultats_essais = [25.1, 24.8, 25.3, 24.8]</code></td>
+</tr>
+<tr>
+<td><strong>Tuple</strong></td>
+<td>Pour une collection ordonnée qui ne doit pas changer (constante). Idéal pour les
+                                        données hétérogènes comme des coordonnées.</td>
+<td><code>point_gps = (48.85, 2.35)</code></td>
+</tr>
+<tr>
+<td><strong>Dictionnaire</strong></td>
+<td>Pour stocker des paires clé-valeur, pour un accès rapide par un identifiant
+                                        unique. Parfait pour représenter des objets avec des propriétés.</td>
+<td><code>materiau = {'nom': 'Acier S275', 'limite_elastique': 275}</code></td>
+</tr>
+<tr>
+<td><strong>Ensemble (Set)</strong></td>
+<td>Pour stocker des éléments uniques, vérifier rapidement leur présence, ou pour
+                                        des opérations mathématiques (union, intersection...).</td>
+<td><code>normes_applicables = {'Eurocode 3', 'Eurocode 8'}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title" id="chap5-exercices">Exercices Corrigés</h4>
+<h5 class="mt-4">1. Analyse de données de capteurs</h5>
+<p>Vous avez une liste de mesures de température. Calculez la moyenne, le minimum, le maximum,
+                            et supprimez toutes les lectures supérieures à 50.0.</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap5-ex1" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap5-ex1">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+temperatures = [25.5, 26.1, 55.3, 24.9, 25.2, 51.0, 25.8]
+print "Lectures initiales:", temperatures
+
+# Filtrer les valeurs aberrantes avec une liste en compréhension
+temperatures_valides = [t for t in temperatures if t &lt;= 50.0]
+print "Lectures valides:", temperatures_valides
+
+# Calculs statistiques
+moyenne = sum(temperatures_valides) / len(temperatures_valides)
+minimum = min(temperatures_valides)
+maximum = max(temperatures_valides)
+
+print "Moyenne: {:.2f}°C".format(moyenne)
+print "Minimum:", minimum
+print "Maximum:", maximum
+</code></pre>
+</div>
+<h5 class="mt-4">2. Gestion d'un portefeuille d'actions</h5>
+<p>Utilisez un dictionnaire pour représenter un portefeuille d'actions (symbole: nombre
+                            d'actions). Écrivez un script qui calcule la valeur totale du portefeuille en utilisant un
+                            autre dictionnaire pour les prix.</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap5-ex2" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap5-ex2">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+portefeuille = {"AAPL": 10, "GOOG": 5, "TSLA": 15}
+prix_actions = {"AAPL": 150.50, "GOOG": 2750.20, "TSLA": 700.00, "MSFT": 300.00}
+
+valeur_totale = 0.0
+print "--- Calcul de la valeur du portefeuille ---"
+for symbole, quantite in portefeuille.iteritems():
+    # On utilise .get() pour éviter une erreur si le prix n'est pas connu
+    prix = prix_actions.get(symbole, 0)
+    if prix &gt; 0:
+        valeur_action = quantite * prix
+        valeur_totale += valeur_action
+        print "- {0} actions de {1} valent ${2:.2f}".format(quantite, symbole, valeur_action)
+    else:
+        print "- Le prix pour l'action {0} est inconnu.".format(symbole)
+
+print "\nValeur totale du portefeuille: ${0:.2f}".format(valeur_totale)
+</code></pre>
+</div>
+<h5 class="mt-4">3. Trouver les compétences communes</h5>
+<p>Deux équipes de projet listent leurs compétences. Utilisez des ensembles pour trouver les
+                            compétences communes aux deux équipes, et celles qui sont uniques à chaque équipe.</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap5-ex3" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap5-ex3">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+equipe_A = {"Python", "Calcul de structure", "AutoCAD", "Gestion de projet"}
+equipe_B = {"Python", "Analyse de données", "Revit", "Gestion de projet"}
+
+competences_communes = equipe_A.intersection(equipe_B)
+print "Compétences communes:", competences_communes
+
+competences_uniques_A = equipe_A.difference(equipe_B)
+print "Compétences uniques à l'équipe A:", competences_uniques_A
+
+competences_uniques_B = equipe_B.difference(equipe_A)
+print "Compétences uniques à l'équipe B:", competences_uniques_B
+</code></pre>
+</div>
+</div>
+</div>
+</section></main>
+<div class="chapter-nav"><a href="chapitre4.html" class="btn">← Précédent</a><a href="chapitre6.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>

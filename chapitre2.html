@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<title>Cours Python - Chapitre 2. Notions de base : Les premiers pas en Python</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><body>
+
+    <header class="main-header">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+            <span>Cours Python 2.7</span>
+        </div>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link ">Accueil</a>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Chapitres ▾</span>
+                <div class="dropdown-content"><a href="index.html">Table des Matières</a><a href="chapitre1.html">Chapitre 1</a><a href="chapitre2.html">Chapitre 2</a><a href="chapitre3.html">Chapitre 3</a><a href="chapitre4.html">Chapitre 4</a><a href="chapitre5.html">Chapitre 5</a><a href="chapitre6.html">Chapitre 6</a><a href="chapitre7.html">Chapitre 7</a><a href="chapitre8.html">Chapitre 8</a><a href="chapitre9.html">Chapitre 9</a></div>
+            </div>
+            <div class="dropdown">
+                <span class="nav-link" style="cursor: pointer;">Quiz ▾</span>
+                <div class="dropdown-content"><a href="quiz.html?chapter=1">Quiz Chapitre 1</a><a href="quiz.html?chapter=2">Quiz Chapitre 2</a><a href="quiz.html?chapter=3">Quiz Chapitre 3</a><a href="quiz.html?chapter=4">Quiz Chapitre 4</a><a href="quiz.html?chapter=5">Quiz Chapitre 5</a><a href="quiz.html?chapter=6">Quiz Chapitre 6</a><a href="quiz.html?chapter=7">Quiz Chapitre 7</a><a href="quiz.html?chapter=8">Quiz Chapitre 8</a><a href="quiz.html?chapter=9">Quiz Chapitre 9</a></div>
+            </div>
+            <a href="tp.html" class="nav-link ">TP</a>
+            <a href="corriges.html" class="nav-link ">Corrigés</a>
+            <a href="conclusion.html" class="nav-link ">Conclusion</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+        </nav>
+    </header>
+    <div class="container">
+<main>
+<section id="chap2">
+<h2>Chapitre 2. Notions de base : Les premiers pas en Python</h2>
+<div class="alert alert-info">
+<h4 class="alert-heading">Objectifs du chapitre</h4>
+<p>Dans ce chapitre, nous allons aborder les notions fondamentales qui forment le socle de la
+                        programmation en Python :</p>
+<ul>
+<li>La différence entre le <strong>mode interactif</strong> et le <strong>mode script</strong>.
+                        </li>
+<li>L'utilisation des <strong>opérateurs</strong> arithmétiques pour effectuer des calculs.</li>
+<li>Le concept de <strong>variable</strong> pour stocker des informations.</li>
+<li>Les <strong>types de données</strong> de base (nombres, texte, booléens).</li>
+<li>La <strong>conversion</strong> d'un type de donnée à un autre.</li>
+<li>L'utilisation des <strong>fonctions intégrées</strong> pour des tâches courantes.</li>
+</ul>
+</div>
+<p>Bienvenue dans le monde de la programmation ! Ce chapitre est notre point de départ. Nous allons
+                    découvrir les outils les plus fondamentaux de Python, qui nous serviront dans tout le reste du
+                    cours. Préparez-vous à transformer votre ordinateur en un puissant assistant de calcul.</p>
+<p><em>À la fin de ce chapitre, vous saurez écrire vos premiers calculs et manipuler des données
+                        simples.</em></p>
+<h3 id="c2-A">2-A. Mode interactif et mode script</h3>
+<p>Imaginez que vous appreniez une nouvelle langue. Vous avez deux façons de pratiquer : avoir une
+                    conversation (vous dites quelque chose, on vous répond tout de suite) ou écrire une lettre (vous
+                    écrivez tout votre texte, puis vous l'envoyez). C'est pareil avec Python !</p>
+<ul>
+<li><strong>Mode interactif :</strong> C'est la "conversation". Vous ouvrez un terminal, vous tapez
+                        <code>python</code>, et un prompt <code>&gt;&gt;&gt;</code> apparaît. Chaque ligne que vous
+                        écrivez est exécutée instantanément. C'est parfait pour faire des essais rapides.
+                    </li>
+<img alt="Prompt Python" class="img-fluid rounded my-3 zoomable-image mx-auto d-block" src="https://sites.pitt.edu/~naraehan/python2/img/Mac-bad-Tcl.png"/>
+<li><strong>Mode script :</strong> C'est la "lettre". Vous écrivez toutes vos instructions dans un
+                        fichier (un script) qui se termine par <code>.py</code>. Ensuite, vous demandez à Python de lire
+                        cette lettre et d'exécuter toutes les instructions dans l'ordre. C'est comme ça qu'on crée de
+                        vrais programmes. Pour exécuter un script, utilisez la commande :
+                        <code>python nom_script.py</code>.
+                    </li>
+<img alt="Prompt Python" class="img-fluid rounded my-3 zoomable-image mx-auto d-block" src="https://i.ytimg.com/vi/UQi-L-_chcc/maxresdefault.jpg"/>
+</ul>
+<div class="alert alert-secondary">
+<h5>Mini-exercice</h5>
+<p>1. Lancez le mode interactif et testez le calcul <code>3 + 4</code>.<br/>2. Créez un fichier
+                        <code>test.py</code> et écrivez-y <code>print 3 + 4</code>. Exécutez-le avec la commande
+                        <code>python test.py</code>.
+                    </p>
+</div>
+<h4 id="c2-A-2">2-A-2. Les Opérateurs Arithmétiques</h4>
+<p>Ce sont les symboles que Python utilise pour faire des maths.</p>
+<div class="alert alert-danger">
+<h4>Le Piège de la Division en Python 2</h4>
+<p>C'est le point le plus important de ce chapitre. Quand vous divisez deux nombres entiers en
+                        Python 2, le résultat est <strong>toujours un entier</strong>. La partie décimale est simplement
+                        jetée (tronquée), elle n'est pas arrondie.</p>
+<p>Pour obtenir une division précise, il faut qu'au moins un des nombres soit un flottant (un nombre
+                        à virgule).</p>
+</div>
+<pre><code class="language-python"># Division de deux entiers : le resultat est tronque
+print 10 / 3  # Affiche 2 (et non 3.333...)
+
+# Pour forcer la division flottante, utilisez un .0
+print 10.0 / 3 # Affiche 3.33333333333
+</code></pre>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+<th>Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>Addition</td>
+<td><code>5 + 3</code></td>
+<td><code>8</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Soustraction</td>
+<td><code>5 - 3</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Multiplication</td>
+<td><code>5 * 3</code></td>
+<td><code>15</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Division (entière si les deux opérandes sont des entiers)</td>
+<td><code>10 / 3</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>//</code></td>
+<td>Division entière (quotient)</td>
+<td><code>10 // 3</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>Modulo (reste de la division)</td>
+<td><code>10 % 3</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>Puissance</td>
+<td><code>2 ** 4</code></td>
+<td><code>16</code></td>
+</tr>
+</tbody>
+</table>
+<p>Il existe aussi des fonctions intégrées pour des opérations courantes :</p>
+<pre><code class="language-python"># Valeur absolue
+print abs(-5)  # Affiche 5
+
+# Puissance (alternative a **)
+print pow(2, 4) # Affiche 16
+
+
+# Arrondi
+print round(3.14159, 2) # Affiche 3.14
+</code></pre>
+<h3 id="c2-B">2-B. Variable et type de donnée</h3>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Analogie pour les débutants</h5>
+<p>Imaginez que vous avez des boîtes pour ranger des choses. En programmation, ces boîtes
+                        s'appellent des <strong>variables</strong>. Chaque boîte peut contenir une information : un
+                        nombre, un mot, etc. Le signe <code>=</code> est l'instruction pour mettre quelque chose dans la
+                        boîte.</p>
+<p>Python est intelligent : il devine tout seul le type d'information que vous mettez dans la boîte
+                        (c'est le <strong>typage dynamique</strong>) et il vous empêchera de faire des calculs bizarres,
+                        comme additionner un nombre et un mot (c'est le <strong>typage fort</strong>).</p>
+</div>
+<h4 id="c2-B-1">2-B-1. Stocker des informations : les Variables</h4>
+<p>Imaginez une variable comme une <strong>boîte de rangement avec une étiquette</strong> dans la
+                    mémoire de l'ordinateur. L'étiquette est le nom de la variable, et le contenu de la boîte est la
+                    valeur. Le signe <code>=</code> en programmation est une instruction d'<strong>affectation</strong>
+                    : "Prends cette valeur et mets-la dans la boîte portant cette étiquette".</p>
+<div class="alert alert-warning">
+<h5>Règles pour nommer les variables</h5>
+<ul>
+<li>Un nom de variable ne peut contenir que des lettres (<code>a-z</code>, <code>A-Z</code>),
+                            des chiffres (<code>0-9</code>) et des underscores (<code>_</code>).</li>
+<li>Il ne doit <strong>jamais</strong> commencer par un chiffre.</li>
+<li>Évitez d'utiliser des mots réservés du langage (<code>if</code>, <code>for</code>,
+                            <code>print</code>, etc.).
+                        </li>
+</ul>
+</div>
+<pre><code class="language-python"># On met la valeur 20 dans une boite etiquetee "largeur"
+largeur = 20
+hauteur = 10
+
+# On utilise les variables pour un calcul
+surface = largeur * hauteur
+print surface
+</code></pre>
+<pre><code class="language-python">&gt;&gt;&gt; 200
+</code></pre>
+<div class="alert alert-secondary">
+<h5>Exercice : Conversion d'unités</h5>
+<p>Créez une variable <code>longueur_m</code> avec une valeur en mètres. Créez une deuxième variable
+                        <code>longueur_cm</code> qui calcule la conversion en centimètres et affichez le résultat.
+                    </p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap2-conversion" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap2-conversion">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+longueur_m = 1.5
+longueur_cm = longueur_m * 100
+print longueur_m, "mètres correspond à", longueur_cm, "centimètres"</code></pre>
+</div>
+</div>
+<h4 id="c2-B-2">2-B-2. Les Types de Données : La nature de l'information</h4>
+<div class="alert alert-light">
+<h5 class="alert-heading">💡 Pour les débutants</h5>
+<ul>
+<li><strong>int</strong>: Ce sont les nombres entiers, comme 1, 42, ou -10.</li>
+<li><strong>float</strong>: Ce sont les nombres à virgule, comme 3.14 ou 9.99. Utiles pour les
+                            prix, les mesures, etc.</li>
+<li><strong>str</strong>: C'est simplement du texte.</li>
+<li><strong>bool</strong>: C'est le type le plus simple. Il n'a que deux valeurs :
+                            <strong>True</strong> (Vrai) ou <strong>False</strong> (Faux). Pensez à un interrupteur :
+                            allumé ou éteint.
+                        </li>
+</ul>
+<p>En coulisses, les booléens sont une sous-classe des entiers : <code>True</code> vaut
+                        <code>1</code> et <code>False</code> vaut <code>0</code>.
+                    </p>
+<pre><code class="language-python">print True + True # Affiche 2</code></pre>
+<p>
+<strong>Le point le plus critique en Python 2.7 : la différence entre <code>str</code> et
+                            <code>unicode</code>.</strong><br/>
+                        Le type <code>str</code> contient des **octets (bytes)**, pas du texte "humain". C'est une
+                        séquence d'octets, souvent en ASCII. Pour gérer du texte avec des accents, des emojis ou des
+                        alphabets non latins, Python 2.7 utilise un type séparé : <code>unicode</code>, que l'on crée
+                        avec un préfixe <code>u</code> (ex: <code>u"Bonjour à tous"</code>). Mélanger les deux sans
+                        précaution est la source de la fameuse erreur <code>UnicodeDecodeError</code>.
+                    </p>
+</div>
+<img alt="Schéma illustrant les principaux types de données en Python : int, float, str, bool" class="img-fluid rounded my-3 mx-auto d-block zoomable-image" src="https://www.fredscave.com/python-data-types.svg" style="max-width: 500px;"/>
+<p>Python a besoin de savoir quel "type" d'information vous stockez pour pouvoir la manipuler
+                    correctement. On ne peut pas faire une division sur du texte ! Python est un langage à
+                    <strong>typage dynamique</strong>, ce qui signifie que vous n'avez pas besoin de déclarer le type
+                    d'une variable ; Python le devine pour vous au moment de l'affectation. Pour vérifier le type d'une
+                    variable, on peut utiliser la fonction <code>isinstance()</code>.
+                </p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int</code></td>
+<td>Nombre entier (32 ou 64 bits). Python 2 utilise aussi le type <code>long</code>
+                                (précision arbitraire) automatiquement pour les très grands nombres.</td>
+<td><code>-5</code>, <code>100</code>, <code>0</code></td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>Nombre à virgule flottante</td>
+<td><code>3.14</code>, <code>-0.01</code>, <code>2.5e3</code> (2500.0)</td>
+</tr>
+<tr>
+<td><code>str</code></td>
+<td>Chaîne de caractères (texte)</td>
+<td><code>"Bonjour"</code>, <code>'Python 2.7'</code></td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td>Booléen (Vrai/Faux)</td>
+<td><code>True</code>, <code>False</code></td>
+</tr>
+<tr>
+<td><code>complex</code></td>
+<td>Nombre complexe</td>
+<td><code>3 + 4j</code></td>
+</tr>
+</tbody>
+</table>
+<h5>Le Type Booléen : <code>bool</code></h5>
+<p>Le type booléen est le fondement des structures conditionnelles. En Python, de nombreuses valeurs
+                    peuvent être interprétées comme <code>True</code> ou <code>False</code>.</p>
+<pre><code class="language-python"># Les valeurs "vides" ou nulles sont False
+print bool(0)      # Affiche False
+print bool("")     # Affiche False
+
+# Toute autre valeur est True
+print bool(5)      # Affiche True
+print bool("abc")  # Affiche True
+</code></pre>
+<h4 id="c2-B-3">2-B-3. La Conversion de Type (Casting)</h4>
+<p>Parfois, il est nécessaire de convertir une donnée d'un type à un autre. On utilise pour cela des
+                    fonctions portant le nom du type cible, comme <code>int()</code>, <code>float()</code>, ou
+                    <code>str()</code>.
+                </p>
+<p>La fonction <code>raw_input()</code>, qui permet de demander une information à l'utilisateur,
+                    renvoie
+                    <strong>toujours</strong> une chaîne de caractères (<code>str</code>). Il est donc presque
+                    toujours
+                    nécessaire de la convertir.
+                </p>
+<pre><code class="language-python"># La fonction int() tronque la partie decimale
+print int(3.9)  # Affiche 3
+
+# La fonction float() peut interpreter la notation scientifique
+print float("2.5e3") # Affiche 2500.0
+
+# Une chaine de caracteres
+age_str = "25"
+
+# Conversion de str vers int
+age_num = int(age_str)
+print "L'annee prochaine, vous aurez", age_num + 1
+</code></pre>
+<div class="alert alert-secondary">
+<h5>Exercice : Somme de deux nombres</h5>
+<p>Écrivez un script qui demande deux nombres à l'utilisateur avec <code>raw_input()</code>, les
+                        convertit en nombres flottants, et affiche leur somme.</p>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap2-somme" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap2-somme">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+nombre1 = float(raw_input("Entrez le premier nombre : "))
+nombre2 = float(raw_input("Entrez le second nombre : "))
+somme = nombre1 + nombre2
+print "La somme est :", somme</code></pre>
+</div>
+</div>
+<h3 id="c2-C">2-C. Les Fonctions Prédéfinies (Built-in)</h3>
+<p>Une fonction est un bloc de code qui accomplit une tâche précise. Python en a beaucoup de prêtes
+                    à
+                    l'emploi, accessibles à tout moment.</p>
+<ul>
+<li><code>len(x)</code>: Renvoie la longueur (nombre d'éléments) d'un objet.</li>
+<li><code>type(x)</code>: Renvoie le type d'un objet.</li>
+<li><code>max(a, b, ...)</code>: Renvoie le plus grand élément.</li>
+<li><code>min(a, b, ...)</code>: Renvoie le plus petit élément.</li>
+<li><code>range(start, stop, step)</code>: Génère une séquence de nombres.</li>
+<li><code>help(objet)</code>: Affiche la documentation intégrée d'un objet.</li>
+</ul>
+<p>Pour des fonctions plus spécialisées, comme les fonctions mathématiques, il faut les
+                    <strong>importer</strong> depuis des modules.
+                </p>
+<div class="alert alert-success">
+<h5>Bonnes pratiques : Imports</h5>
+<ul>
+<li>Toujours placer les imports au tout début du fichier.</li>
+<li>Ajouter un commentaire si l'utilité du module n'est pas évidente.</li>
+</ul>
+</div>
+<pre><code class="language-python"># Import du module math pour acceder a ses fonctions
+import math
+
+# Utilisation de la fonction sqrt (racine carree) du module math
+print math.sqrt(81) # Affiche 9.0
+
+# Obtenir de l'aide sur une fonction specifique
+help(math.sqrt)
+# Affiche : sqrt(x) -&gt; the square root of x
+</code></pre>
+<h4>Formatage de chaînes : <code>.format()</code> vs <code>%</code></h4>
+<p>Pour inclure des variables dans une chaîne, la méthode <code>.format()</code> est la plus moderne
+                    et
+                    la plus flexible en Python 2.7. Cependant, vous rencontrerez très souvent l'ancien opérateur
+                    <code>%</code> dans du code existant.
+                </p>
+<pre><code class="language-python">nom_materiau = "Beton B25"
+resistance = 25.583
+
+# --- Methode moderne et recommandee : .format() ---
+
+# 1. Par position (comme dans un tableur)
+message = "Le materiau {0} a une resistance de {1} MPa.".format(nom_materiau, resistance)
+print message
+
+# 2. Par nom (plus lisible !)
+message = "Le materiau {nom} a une resistance de {res} MPa.".format(nom=nom_materiau, res=resistance)
+print message
+
+# 3. Avec des options de formatage (arrondir a 2 decimales)
+# La syntaxe est {nom:format}. Ici, .2f signifie "flottant avec 2 chiffres apres la virgule".
+message = "Resistance precise : {res:.2f} MPa pour le materiau {nom}.".format(nom=nom_materiau, res=resistance)
+print message
+
+
+# --- Ancienne methode avec l'operateur % ---
+
+# La syntaxe est moins lisible et il faut faire attention a l'ordre des variables.
+print ("Le materiau %s a une resistance de %.2f MPa." %
+       (nom_materiau, resistance))
+
+</code></pre>
+<div class="alert alert-info">
+<strong>Pourquoi <code>.format()</code> est meilleur ?</strong>
+<ul>
+<li><strong>Lisibilité :</strong> Le formatage par nom (<code>{nom}</code>) est beaucoup
+                            plus
+                            clair que de devoir compter les <code>%s</code> et <code>%f</code>.</li>
+<li><strong>Flexibilité :</strong> Il est plus facile de réutiliser une variable plusieurs
+                            fois
+                            ou de changer l'ordre sans devoir modifier la liste des variables à la fin.</li>
+<li><strong>Évolutivité :</strong> C'est la méthode qui a été améliorée en Python 3 avec les
+                            "f-strings", qui sont encore plus concis. Apprendre <code>.format()</code> vous prépare
+                            donc
+                            mieux pour l'avenir.</li>
+</ul>
+</div>
+<h3 id="c2-D">2-D. Le code source : lisibilité et bonnes pratiques (PEP 8)</h3>
+<p>Un code qui fonctionne, c'est bien. Un code lisible par d'autres (ou par vous-même dans 6 mois),
+                    c'est mieux ! La communauté Python a établi des règles de style, regroupées dans un document
+                    appelé
+                    <strong>PEP 8</strong>.
+                </p>
+<ul>
+<li><strong>Indentation :</strong> Utilisez <strong>4 espaces</strong> par niveau d'indentation.
+                        N'utilisez pas de tabulations.</li>
+<li><strong>Longueur des lignes :</strong> Limitez chaque ligne à 79 caractères.</li>
+<li><strong>Une instruction par ligne :</strong> C'est plus clair.</li>
+<li><strong>Commentaires :</strong> Écrivez des commentaires clairs en français (ou en anglais).
+                        Utilisez des phrases courtes et précises pour expliquer le "pourquoi" du code, pas le
+                        "comment".
+                    </li>
+</ul>
+<h5>Exemple de formatage</h5>
+<p><strong>Code mal formaté :</strong></p>
+<pre><code class="language-python"># Mauvais exemple
+x=5; y=10
+if x&lt;y: print "x est plus petit"
+</code></pre>
+<p><strong>Code corrigé selon PEP 8 :</strong></p>
+<pre><code class="language-python"># Bon exemple
+x = 5
+y = 10
+
+if x &lt; y:
+    print "x est plus petit"
+</code></pre>
+<div class="alert alert-secondary">
+<h5>Exercice : Réécriture de code</h5>
+<p>Réécrivez le code suivant pour qu'il respecte les conventions PEP 8 :</p>
+<pre><code class="language-python">largeur=10;hauteur=5;aire=largeur*hauteur;print 'Surface:'+str(aire)</code></pre>
+<p><button class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap2-pep8" data-bs-toggle="collapse" type="button">Voir la solution</button></p>
+<div class="collapse" id="solution-chap2-pep8">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+largeur = 10
+hauteur = 5
+aire = largeur * hauteur
+print 'Surface: ' + str(aire)</code></pre>
+</div>
+</div>
+<hr class="my-5"/>
+<hr class="my-5"/>
+<h3 id="c2-E">2-E. Opérateurs de Comparaison, d'Identité et Logiques</h3>
+<p>Ces opérateurs sont les briques de base de la prise de décision en Python. Ils permettent de
+                    comparer
+                    des valeurs et de combiner des conditions.</p>
+<h4>Opérateurs de Comparaison</h4>
+<p>Ils comparent les valeurs de deux opérandes et retournent un booléen (<code>True</code> ou
+                    <code>False</code>).
+                </p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+<th>Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>Égal à</td>
+<td><code>5 == 5</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Différent de</td>
+<td><code>5 != 3</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Strictement inférieur à</td>
+<td><code>3 &lt; 5</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Inférieur ou égal à</td>
+<td><code>5 &lt;= 5</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Strictement supérieur à</td>
+<td><code>5 &gt; 3</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Supérieur ou égal à</td>
+<td><code>5 &gt;= 3</code></td>
+<td><code>True</code></td>
+</tr>
+</tbody>
+</table>
+<h4>Opérateurs d'Identité</h4>
+<p>Ils comparent non pas les valeurs, mais si deux variables pointent vers le <strong>même objet en
+                        mémoire</strong>.</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>is</code></td>
+<td>Vrai si les deux variables sont le même objet</td>
+<td><code>a is b</code></td>
+</tr>
+<tr>
+<td><code>is not</code></td>
+<td>Vrai si les deux variables sont des objets différents</td>
+<td><code>a is not b</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python">a = [1, 2, 3]
+b = a  # b est une référence à a
+c = [1, 2, 3] # c a la même valeur, mais est un objet différent
+
+print a == c  # True (les valeurs sont égales)
+print a is c  # False (ce ne sont pas les mêmes objets en mémoire)
+print a is b  # True (b est juste un autre nom pour l'objet a)
+</code></pre>
+<h4>Opérateurs Logiques</h4>
+<p>Ils permettent de combiner des expressions booléennes.</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>and</code></td>
+<td>Vrai si <strong>les deux</strong> conditions sont vraies</td>
+<td><code>age &gt; 18 and a_permis</code></td>
+</tr>
+<tr>
+<td><code>or</code></td>
+<td>Vrai si <strong>au moins une</strong> des conditions est vraie</td>
+<td><code>est_weekend or est_ferie</code></td>
+</tr>
+<tr>
+<td><code>not</code></td>
+<td>Inverse le booléen (<code>True</code> devient <code>False</code> et vice-versa)</td>
+<td><code>not est_connecte</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Précédence des opérateurs :</strong> L'ordre d'évaluation est <code>not</code>, puis
+                    <code>and</code>, puis <code>or</code>. En cas de doute, utilisez des parenthèses pour clarifier
+                    l'ordre.
+                </p>
+<h3 id="c2-F">2-F. Affectations Composées</h3>
+<p>Ce sont des raccourcis pratiques pour modifier une variable en place.</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Opérateur</th>
+<th>Exemple</th>
+<th>Équivalent à</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+=</code></td>
+<td><code>x += 1</code></td>
+<td><code>x = x + 1</code></td>
+</tr>
+<tr>
+<td><code>-=</code></td>
+<td><code>x -= 2</code></td>
+<td><code>x = x - 2</code></td>
+</tr>
+<tr>
+<td><code>*=</code></td>
+<td><code>x *= 3</code></td>
+<td><code>x = x * 3</code></td>
+</tr>
+<tr>
+<td><code>/=</code></td>
+<td><code>x /= 4</code></td>
+<td><code>x = x / 4</code></td>
+</tr>
+<tr>
+<td><code>%=</code></td>
+<td><code>x %= 2</code></td>
+<td><code>x = x % 2</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="c2-G">2-G. Le type <code>None</code></h3>
+<p><code>None</code> est un type spécial qui représente l'absence de valeur. C'est l'équivalent du
+                    <code>null</code> dans d'autres langages. Une fonction qui ne retourne rien explicitement
+                    retourne
+                    en fait <code>None</code>.
+                </p>
+<p>Le test idiomatique pour vérifier si une variable est <code>None</code> est d'utiliser
+                    l'opérateur
+                    d'identité <code>is</code>.</p>
+<pre><code class="language-python">resultat = None
+# Manière correcte et recommandée de tester pour None
+if resultat is None:
+    print "Aucun résultat n'a été retourné."
+
+# Manière déconseillée (peut fonctionner, mais moins précise)
+if resultat == None:
+    print "Le résultat est égal à None, mais ce test est moins robuste."
+</code></pre>
+<h3 id="c2-H">2-H. Les Chaînes de Caractères (Strings) en détail</h3>
+<p>Les chaînes sont des séquences de caractères immuables. On peut y accéder comme à des listes.</p>
+<h4>Indexation et Slices</h4>
+<pre><code class="language-python">s = "Python"
+print s[0]    # 'P' (premier élément)
+print s[-1]   # 'n' (dernier élément)
+print s[2:5]  # 'tho' (de l'index 2 à 4)
+print s[:3]   # 'Pyt' (du début à l'index 2)
+print s[3:]   # 'hon' (de l'index 3 à la fin)
+</code></pre>
+<h4>Méthodes Clés</h4>
+<ul>
+<li><code>find(sub)</code>: Retourne l'index de la première occurrence de <code>sub</code>, ou
+                        -1 si
+                        non trouvée.</li>
+<li><code>split(sep)</code>: Divise la chaîne en une liste de sous-chaînes en utilisant
+                        <code>sep</code> comme délimiteur.
+                    </li>
+<li><code>join(list)</code>: Concatène les éléments d'une liste en une seule chaîne, en
+                        utilisant la
+                        chaîne elle-même comme séparateur.</li>
+<li><code>strip()</code>: Supprime les espaces au début et à la fin de la chaîne.</li>
+</ul>
+<pre><code class="language-python">phrase = "  Bonjour le monde  "
+print phrase.strip()  # "Bonjour le monde"
+
+mots = phrase.strip().split(' ')
+print mots  # ['Bonjour', 'le', 'monde']
+
+print "-".join(mots) # "Bonjour-le-monde"
+
+print phrase.find("monde") # 13
+</code></pre>
+<h4>Formats <code>%</code> et <code>.format()</code></h4>
+<p>La méthode <code>.format()</code> est plus moderne et flexible que l'opérateur <code>%</code>.
+                </p>
+<pre><code class="language-python"># Ancien style avec %
+print "Bonjour %s, vous avez %d ans." % ("Alice", 30)
+
+# Style moderne avec .format()
+print "Bonjour {0}, vous avez {1} ans.".format("Alice", 30)
+print "Bonjour {nom}, vous avez {age} ans.".format(nom="Alice", age=30)
+</code></pre>
+<h4>Littéraux bruts <code>r""</code> et triples quotes</h4>
+<ul>
+<li><strong><code>r""</code></strong>: Les chaînes brutes (raw strings) sont utiles pour les
+                        expressions régulières ou les chemins de fichiers Windows, car les backslashes ne sont pas
+                        interprétés comme des séquences d'échappement.</li>
+<li><strong><code>"""..."""</code></strong> ou <strong><code>'''...'''</code></strong>: Les
+                        chaînes
+                        sur plusieurs lignes permettent d'écrire du texte qui s'étend sur plusieurs lignes, en
+                        conservant les sauts de ligne.</li>
+</ul>
+<pre><code class="language-python"># Chemin Windows sans raw string (fastidieux)
+path = "C:\Users\mokra\Documents"
+
+# Avec raw string (plus simple)
+path_raw = r"C:\Users\mokra\Documents"
+
+# Chaîne multi-lignes
+poeme = """Ceci est un poème
+sur plusieurs
+lignes."""
+print poeme
+</code></pre>
+<h3 id="c2-I">2-I. Entrées/Sorties (I/O) de base en Python 2</h3>
+<h4><code>raw_input()</code> vs <code>input()</code></h4>
+<div class="alert alert-danger">
+<strong>N'utilisez JAMAIS <code>input()</code> en Python 2.</strong> Cette fonction évalue
+                    l'entrée
+                    de l'utilisateur comme du code Python, ce qui est une faille de sécurité majeure. Utilisez
+                    toujours
+                    <code>raw_input()</code>, qui lit l'entrée comme une chaîne de caractères, puis convertissez-la
+                    manuellement.
+                </div>
+<pre><code class="language-python"># La bonne pratique en Python 2
+nom = raw_input("Quel est votre nom ? ")
+age_str = raw_input("Quel est votre age ? ")
+age = int(age_str)
+</code></pre>
+<h4>Variantes de <code>print</code></h4>
+<ul>
+<li><strong>Virgule finale :</strong> Une virgule à la fin d'une instruction <code>print</code>
+                        empêche le saut de ligne.</li>
+<li><strong>Redirection :</strong> L'opérateur <code>&gt;&gt;</code> permet de rediriger la
+                        sortie
+                        de <code>print</code> vers un fichier.</li>
+</ul>
+<pre><code class="language-python">print "Bonjour",  # Pas de saut de ligne
+print "le monde"
+
+# Redirection vers un fichier
+with open("sortie.txt", "w") as f:
+    print &gt;&gt; f, "Cette ligne est écrite dans le fichier."
+</code></pre>
+<h3 id="c2-J">2-J. Règles d'Indentation et PEP 8</h3>
+<p>Python utilise l'indentation (le décalage à gauche du code) pour définir les blocs de code. La
+                    convention est d'utiliser <strong>4 espaces</strong> par niveau d'indentation.</p>
+<div class="alert alert-warning">
+<strong>Ne mélangez jamais les tabulations et les espaces.</strong> C'est une source d'erreurs
+                    courantes (<code>TabError</code>). Configurez votre éditeur de texte pour qu'il insère 4 espaces
+                    lorsque vous appuyez sur la touche Tab.
+                </div>
+<p>Le <strong>PEP 8</strong> est le guide de style officiel pour le code Python. Il couvre des
+                    sujets
+                    comme la longueur des lignes (79 caractères), le nommage des variables
+                    (<code>snake_case</code>), et
+                    l'espacement autour des opérateurs. Des outils comme <code>pycodestyle</code> ou
+                    <code>flake8</code>
+                    peuvent vérifier automatiquement la conformité de votre code au PEP 8.
+                </p>
+<pre><code class="language-python"># Commande pour vérifier le style d'un fichier
+# pip install flake8
+flake8 mon_fichier.py
+</code></pre>
+<h3 id="c2-K">2-K. Tableau des Conversions de Types et "Truthiness"</h3>
+<p>Comprendre comment les types sont convertis et comment ils sont évalués dans un contexte booléen
+                    ("truthiness") est crucial pour éviter les erreurs.</p>
+<h4>Conversions de types usuelles</h4>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Fonction</th>
+<th>Description</th>
+<th>Exemple</th>
+<th>Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int(x)</code></td>
+<td>Convertit x en entier (tronque la partie décimale)</td>
+<td><code>int(3.9)</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>float(x)</code></td>
+<td>Convertit x en nombre à virgule flottante</td>
+<td><code>float("3.14")</code></td>
+<td><code>3.14</code></td>
+</tr>
+<tr>
+<td><code>str(x)</code></td>
+<td>Convertit x en chaîne de caractères</td>
+<td><code>str(123)</code></td>
+<td><code>"123"</code></td>
+</tr>
+<tr>
+<td><code>bool(x)</code></td>
+<td>Convertit x en booléen selon sa "truthiness"</td>
+<td><code>bool(0)</code></td>
+<td><code>False</code></td>
+</tr>
+</tbody>
+</table>
+<h4>Règles de "Truthiness"</h4>
+<p>Dans une condition (<code>if</code>, <code>while</code>), Python considère certaines valeurs
+                    comme
+                    "fausses" (Falsy) et toutes les autres comme "vraies" (Truthy).</p>
+<ul>
+<li><strong>Falsy :</strong> <code>None</code>, <code>False</code>, le nombre zéro
+                        (<code>0</code>,
+                        <code>0.0</code>), les collections vides (<code>""</code>, <code>[]</code>, <code>{}</code>,
+                        <code>()</code>).
+                    </li>
+<li><strong>Truthy :</strong> Tout le reste (nombres non nuls, chaînes non vides, collections
+                        non
+                        vides, <code>True</code>).</li>
+</ul>
+<pre><code class="language-python">ma_liste = []
+if not ma_liste:  # Condition vraie car la liste est vide (Falsy)
+    print "La liste est vide."
+</code></pre>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Exercices d'application</h4>
+<ol>
+<li><strong>Calcul de la surface d'un rectangle :</strong> Écrivez un script qui demande
+                                la
+                                largeur et la hauteur d'un rectangle à l'utilisateur (avec <code>raw_input</code>),
+                                puis
+                                calcule et affiche la surface.</li>
+<p><button aria-controls="solution-chap2-ex1" aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap2-ex1" data-bs-toggle="collapse" type="button">Voir la
+                                    solution</button></p>
+<div class="collapse" id="solution-chap2-ex1">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+largeur_str = raw_input("Entrez la largeur du rectangle : ")
+hauteur_str = raw_input("Entrez la hauteur du rectangle : ")
+
+# On convertit les entrees (qui sont des chaines) en nombres flottants
+largeur = float(largeur_str)
+hauteur = float(hauteur_str)
+
+surface = largeur * hauteur
+
+print "La surface du rectangle est :", surface
+</code></pre>
+</div>
+<li><strong>Phrase formatée :</strong> Demandez à l'utilisateur son nom et son âge.
+                                Affichez
+                                une phrase du type : "Bonjour [Nom], vous aurez 100 ans en l'année [Année]".</li>
+<p><button aria-controls="solution-chap2-ex2" aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap2-ex2" data-bs-toggle="collapse" type="button">Voir la
+                                    solution</button></p>
+<div class="collapse" id="solution-chap2-ex2">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+nom = raw_input("Quel est votre nom ? ")
+age_str = raw_input("Quel est votre age ? ")
+
+# On convertit l'age en nombre entier
+age = int(age_str)
+
+annee_actuelle = 2025 # On definit l'annee actuelle comme demande
+annee_centenaire = annee_actuelle + (100 - age)
+
+message = "Bonjour {0}, vous aurez 100 ans en l'annee {1}.".format(nom, annee_centenaire)
+print message
+</code></pre>
+</div>
+<li><strong>Aire d'un cercle avec le module <code>math</code> :</strong> Demandez le
+                                rayon
+                                d'un cercle, importez le module <code>math</code> et utilisez sa constante
+                                <code>math.pi</code> pour calculer l'aire.
+                            </li>
+<p><button aria-controls="solution-chap2-ex3" aria-expanded="false" class="btn btn-outline-primary btn-sm" data-bs-target="#solution-chap2-ex3" data-bs-toggle="collapse" type="button">Voir la
+                                    solution</button></p>
+<div class="collapse" id="solution-chap2-ex3">
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+rayon_str = raw_input("Entrez le rayon du cercle : ")
+
+# On definit notre propre variable pour Pi
+pi = 3.14159
+
+rayon = float(rayon_str)
+aire = pi * (rayon ** 2)
+
+# On utilise le formatage pour un affichage plus propre (2 decimales)
+message = "L'aire d'un cercle de rayon {0} est d'environ {1:.2f}.".format(rayon, aire)
+print message
+</code></pre>
+</div>
+</ol>
+</div>
+</div>
+<div class="alert alert-danger">
+<h4 class="alert-heading">Pièges à éviter</h4>
+<ul>
+<li><strong>La division entière :</strong> Oublier que <code>5 / 2</code> donne
+                            <code>2</code>
+                            est la source d'erreur la plus commune au début.
+                        </li>
+<li><strong><code>input()</code> vs <code>raw_input()</code> :</strong> N'utilisez
+                            <strong>JAMAIS</strong> <code>input()</code> en Python 2. C'est une faille de sécurité.
+                            Utilisez toujours <code>raw_input()</code> et convertissez manuellement.
+                        </li>
+<li><strong>Concaténation de types différents :</strong> Tenter de faire
+                            <code>"Mon age : " + 25</code> provoquera une erreur. Il faut convertir le nombre en
+                            chaîne
+                            avec <code>str()</code> : <code>"Mon age : " + str(25)</code>.
+                        </li>
+</ul>
+</div>
+<div class="card my-4">
+<div class="card-body">
+<h4 class="card-title">Résumé du Chapitre 2</h4>
+<ol>
+<li><strong>Modes d'exécution :</strong> Le mode interactif (<code>&gt;&gt;&gt;</code>)
+                                pour
+                                les tests rapides et le mode script (fichiers <code>.py</code>) pour les programmes.
+                            </li>
+<li><strong>Opérateurs :</strong> Python supporte les opérateurs arithmétiques
+                                (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>), de
+                                comparaison (<code>==</code>, <code>!=</code>, <code>&lt;</code>,
+                                <code>&gt;</code>),
+                                d'identité (<code>is</code>, <code>is not</code>) et logiques (<code>and</code>,
+                                <code>or</code>, <code>not</code>).
+                            </li>
+<li><strong>Division en Python 2 :</strong> La division de deux entiers (ex:
+                                <code>10 / 3</code>) résulte en un entier (<code>2</code>). Pour obtenir un
+                                flottant, un
+                                des nombres doit être un flottant (ex: <code>10.0 / 3</code>).
+                            </li>
+<li><strong>Variables et Types :</strong> Les variables sont créées par affectation. Les
+                                types de base sont <code>int</code>, <code>float</code>, <code>str</code>,
+                                <code>bool</code>, et <code>None</code>. Python 2 distingue <code>str</code>
+                                (octets) et
+                                <code>unicode</code> (texte).
+                            </li>
+<li><strong>Conversion de Type :</strong> Conversion explicite avec <code>int()</code>,
+                                <code>float()</code>, <code>str()</code>. Essentiel après <code>raw_input()</code>
+                                qui
+                                retourne toujours une <code>str</code>.
+                            </li>
+<li><strong>Chaînes de Caractères :</strong> Immuables, supportent l'indexation, le
+                                slicing,
+                                et des méthodes comme <code>.strip()</code>, <code>.split()</code>,
+                                <code>.join()</code>. Le formatage se fait avec la méthode <code>.format()</code>.
+                            </li>
+<li><strong>Entrées/Sorties (I/O) :</strong> Utiliser <code>raw_input()</code> pour des
+                                entrées utilisateur sécurisées. L'instruction <code>print</code> est utilisée pour
+                                l'affichage.</li>
+<li><strong>Modules et Fonctions :</strong> Importer des fonctionnalités avec
+                                <code>import</code> (ex: <code>import math</code>). Utiliser les fonctions intégrées
+                                comme <code>len()</code>, <code>type()</code>.
+                            </li>
+<li><strong>PEP 8 et Lisibilité :</strong> Le guide de style officiel de Python.
+                                Préconise 4
+                                espaces pour l'indentation et des lignes de 79 caractères maximum.</li>
+<li><strong>"Truthiness" :</strong> En contexte booléen, les valeurs vides ou nulles
+                                (<code>0</code>, <code>""</code>, <code>[]</code>, <code>None</code>) sont évaluées
+                                à
+                                <code>False</code>, et les autres à <code>True</code>.
+                            </li>
+</ol>
+</div>
+</div>
+</section></main>
+<div class="chapter-nav"><a href="chapitre1.html" class="btn">← Précédent</a><a href="chapitre3.html" class="btn">Suivant →</a></div><footer class="footer mt-auto py-3 bg-light text-center"><div class="container"><span class="text-muted">© 2025 Cours Python 2.7 - Mokrane KARAR. Tous droits réservés.</span></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="script.js"></script>
+</body></html>
